@@ -1,0 +1,420 @@
+.w-layout-grid {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-columns: 1fr;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: auto auto;
+  grid-template-rows: auto auto;
+  grid-row-gap: 16px;
+  grid-column-gap: 16px;
+}
+
+.topbar {
+  padding-left: 0px;
+  text-align: center;
+}
+
+.button-14 {
+  font-family: 'Times New Roman', TimesNewRoman, Times, Baskerville, Georgia, serif;
+}
+
+.button-2 {
+  margin-left: 40px;
+}
+
+.grid {
+  margin-top: 17px;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  -ms-grid-rows: 52px 52px;
+  grid-template-rows: 52px 52px;
+  text-align: center;
+}
+
+.button-15 {
+  text-align: center;
+}
+
+.button-16 {
+  width: 60px;
+}
+
+.grid-2 {
+  margin-top: 21px;
+  justify-items: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.button-17 {
+  width: 120px;
+  background-color: #18e7a5;
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  color: #3309f1;
+  text-align: center;
+}
+
+.button-18 {
+  width: 120px;
+  background-color: #18e7a5;
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  color: #3309f1;
+  text-align: center;
+}
+
+.button-19 {
+  width: 120px;
+  background-color: #18e7a5;
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  color: #3309f1;
+  text-align: center;
+}
+
+.button-20 {
+  width: 120px;
+  background-color: #18e7a5;
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  color: #3309f1;
+  text-align: center;
+}
+
+.button-21 {
+  width: 120px;
+  background-color: #18e7a5;
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  color: #3309f1;
+  text-align: center;
+}
+
+.button-22 {
+  width: 120px;
+  background-color: #18e7a5;
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  color: #3309f1;
+  text-align: center;
+}
+
+.button-23 {
+  width: 120px;
+  background-color: #18e7a5;
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  color: #3309f1;
+  text-align: center;
+}
+
+.button-24 {
+  width: 120px;
+  background-color: #18e7a5;
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  color: #3309f1;
+  text-align: center;
+}
+
+.button-25 {
+  width: 120px;
+  background-color: #18e7a5;
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  color: #3309f1;
+  text-align: center;
+}
+
+.button-26 {
+  width: 120px;
+  background-color: #18e7a5;
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  color: #5209f1;
+  text-align: center;
+}
+
+.text-block {
+  margin-top: 34px;
+  margin-left: 5%;
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  color: #ff7e05;
+  font-size: 40px;
+}
+
+.columns {
+  width: 60%;
+  height: auto;
+  margin-top: -27px;
+  margin-bottom: -24px;
+  margin-left: 20%;
+}
+
+.column {
+  text-align: center;
+}
+
+.button-27 {
+  width: 150px;
+  background-color: #ffc4b3;
+  color: #53008f;
+  text-align: center;
+}
+
+.column-2 {
+  text-align: center;
+}
+
+.column-3 {
+  text-align: center;
+}
+
+.list {
+  margin: 20px 5% 0px;
+  padding-top: 0px;
+  padding-left: 20px;
+  list-style-type: decimal;
+}
+
+.list-item {
+  padding-left: 0px;
+}
+
+.image {
+  width: 200px;
+  height: 200px;
+}
+
+.div-block {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 200px;
+  margin-top: 50px;
+  margin-right: 5%;
+  margin-left: 5%;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+
+.grid-3 {
+  margin-top: 60px;
+  margin-right: 10%;
+  margin-left: 5%;
+  -ms-grid-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-rows: auto auto auto;
+  grid-template-rows: auto auto auto;
+  background-color: hsla(218.82352941176478, 80.95%, 95.88%, 1.00);
+}
+
+.body {
+  margin-left: 0%;
+  background-color: hsla(216.00000000000014, 12.20%, 91.96%, 1.00);
+}
+
+.image-2 {
+  width: 240px;
+  height: 240px;
+}
+
+.text-block-2 {
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  font-size: 18px;
+}
+
+.text-block-3 {
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  font-size: 18px;
+}
+
+.text-block-4 {
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  font-size: 18px;
+}
+
+.text-block-5 {
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  font-size: 18px;
+}
+
+.text-block-6 {
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  font-size: 18px;
+}
+
+#tragedy.w-node-73b6c088faf1-5db1affa {
+  -ms-grid-column: 1;
+  grid-column-start: 1;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 2;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#action.w-node-4222410b4ad0-5db1affa {
+  -ms-grid-column: 2;
+  grid-column-start: 2;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 3;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#adventure.w-node-3ce94bba709e-5db1affa {
+  -ms-grid-column: 3;
+  grid-column-start: 3;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 4;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#detective.w-node-00054a221cb7-5db1affa {
+  -ms-grid-column: 4;
+  grid-column-start: 4;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 5;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#fantasy.w-node-4f91d11cfecd-5db1affa {
+  -ms-grid-column: 5;
+  grid-column-start: 5;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 6;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#mystery.w-node-08be931522de-5db1affa {
+  -ms-grid-column: 1;
+  grid-column-start: 1;
+  -ms-grid-row: 2;
+  grid-row-start: 2;
+  -ms-grid-column-span: 1;
+  grid-column-end: 2;
+  -ms-grid-row-span: 1;
+  grid-row-end: 3;
+}
+
+#romance.w-node-7e09e958ee2b-5db1affa {
+  -ms-grid-column: 2;
+  grid-column-start: 2;
+  -ms-grid-row: 2;
+  grid-row-start: 2;
+  -ms-grid-column-span: 1;
+  grid-column-end: 3;
+  -ms-grid-row-span: 1;
+  grid-row-end: 3;
+}
+
+#sports.w-node-f9eb10aa3b75-5db1affa {
+  -ms-grid-column: 3;
+  grid-column-start: 3;
+  -ms-grid-column-span: 1;
+  grid-column-end: 4;
+  -ms-grid-row: 2;
+  grid-row-start: 2;
+  -ms-grid-row-span: 1;
+  grid-row-end: 3;
+}
+
+#supernatural.w-node-0223a0026bf3-5db1affa {
+  -ms-grid-column: 4;
+  grid-column-start: 4;
+  -ms-grid-column-span: 1;
+  grid-column-end: 5;
+  -ms-grid-row: 2;
+  grid-row-start: 2;
+  -ms-grid-row-span: 1;
+  grid-row-end: 3;
+}
+
+#funny.w-node-1acb27674772-5db1affa {
+  -ms-grid-column: 5;
+  grid-column-start: 5;
+  -ms-grid-column-span: 1;
+  grid-column-end: 6;
+  -ms-grid-row: 2;
+  grid-row-start: 2;
+  -ms-grid-row-span: 1;
+  grid-row-end: 3;
+}
+
+#cover.w-node-e83870ec88eb-5db1affa {
+  -ms-grid-column: 1;
+  grid-column-start: 1;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 2;
+  -ms-grid-row-span: 3;
+  grid-row-end: 4;
+}
+
+#title.w-node-8eb3a6990027-5db1affa {
+  -ms-grid-column: 2;
+  grid-column-start: 2;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 3;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#author.w-node-4999ff5447a9-5db1affa {
+  -ms-grid-column: 3;
+  grid-column-start: 3;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 4;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#subscribe.w-node-e794ccfe7c11-5db1affa {
+  -ms-grid-column: 2;
+  grid-column-start: 2;
+  -ms-grid-row: 2;
+  grid-row-start: 2;
+  -ms-grid-column-span: 1;
+  grid-column-end: 3;
+  -ms-grid-row-span: 1;
+  grid-row-end: 3;
+}
+
+#comicRate.w-node-95a7166f78c2-5db1affa {
+  -ms-grid-column: 3;
+  grid-column-start: 3;
+  -ms-grid-row: 2;
+  grid-row-start: 2;
+  -ms-grid-column-span: 1;
+  grid-column-end: 4;
+  -ms-grid-row-span: 1;
+  grid-row-end: 3;
+}
+
+#category.w-node-b8117aaf1d25-5db1affa {
+  -ms-grid-column: 2;
+  grid-column-start: 2;
+  -ms-grid-row: 3;
+  grid-row-start: 3;
+  -ms-grid-column-span: 2;
+  grid-column-end: 4;
+  -ms-grid-row-span: 1;
+  grid-row-end: 4;
+}

@@ -14,6 +14,8 @@ public class Page {
 
     private Integer comicid;
 
+    private Integer indexs;
+
     private String path;
 
     public Integer getId() {
@@ -31,6 +33,10 @@ public class Page {
     public void setComicid(Integer comicid) {
         this.comicid = comicid;
     }
+
+    public Integer getIndexs(){ return indexs; }
+
+    public void setIndexs(Integer indexs){ this.indexs =indexs ; }
 
     public String getPath() {
         return path;

@@ -14,7 +14,7 @@ public class Comic {
 
     private Integer seriesid;
 
-
+    private Integer indexs;
 
     public Integer getId() {
         return id;
@@ -31,6 +31,10 @@ public class Comic {
     public void setSeriesid(Integer seriesid) {
         this.seriesid = seriesid;
     }
+
+    public Integer getIndexs(){ return indexs; }
+
+    public void setIndex(Integer indexs){ this.indexs =indexs ; }
 
 
 }

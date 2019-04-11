@@ -16,6 +16,8 @@ public class User {
 
     private String password;
 
+    private String email;
+
     private String profileimage;
 
     private Boolean issuperuser;
@@ -62,5 +64,8 @@ public class User {
         this.issuperuser = issuperuser;
     }
 
+    public String getEmail(){ return email; }
+
+    public void setEmail(String email){ this.email=email; }
 
 }
