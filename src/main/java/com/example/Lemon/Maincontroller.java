@@ -24,24 +24,12 @@ public class Maincontroller {
     private ComicRepository comicRepository;
 
 
-    @GetMapping("/test")
-    public String test(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        User user = new User();
-        user.setId(1);
-        user.setName("weicai");
-        user.setPassword("Caiwei12");
-        user.setIssuperuser(false);
-        user.setProfileimage("xxx");
-        userRepository.save(user);
-        return "signin";
-    }
 
     @GetMapping("/")
     public String aaa(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session.getAttribute("Name") != null) {
-            return "redirect:/hello";
+            return "redirect:/home";
         }
         return "signin";
     }
@@ -51,7 +39,7 @@ public class Maincontroller {
     public String asd(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session.getAttribute("Name") != null) {
-            return "redirect:/hello";
+            return "redirect:/home";
         }
         return "signin";
     }
@@ -92,7 +80,8 @@ public class Maincontroller {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         if(password.length()<6 ||password.length()>16){
-            session.setAttribute("status",3);
+            session.setAttribute("signup_state",3);
+            return "signup";
         }
 
         User user = new User();
@@ -106,19 +95,20 @@ public class Maincontroller {
 
         for (User u : a) {
             if (u.getName().equals(user.getName())) {//username exists
-                session.setAttribute("state", 2);
+                session.setAttribute("signup_state", 2);
                 return "signup";
             }
-            if(u.getEmail().equals((user.getEmail()))){
-                session.setAttribute("state", 4);
+            System.out.println(u.getEmail());
+            if(u.getEmail().equals(user.getEmail())){
+                session.setAttribute("signup_state", 4);
                 return "signup";
             }
         }
 
         userRepository.save(user);
-        session.setAttribute("username", user.getName());
-        session.setAttribute("username",1);
-        return "redirect:/hello";
+        session.setAttribute("Name", user.getName());
+        session.setAttribute("signup_state",1);
+        return "redirect:/home";
     }
 
 
@@ -134,6 +124,7 @@ public class Maincontroller {
     @RequestMapping("/series")
     public String seriesinfo(HttpServletRequest request) {
         Iterable<Series> a = seriesRepository.findAll();
+
         HttpSession session = request.getSession();
         if (session.getAttribute("Name") == null) {
             return "redirect:/login";
@@ -144,6 +135,8 @@ public class Maincontroller {
             if (s.getId().equals(seriesid)) {
                 session.setAttribute("state", 1);
                 session.setAttribute("series",s);
+                List<Comic> list2 =comicRepository.findBySeriesid(seriesid);
+                session.setAttribute("comics",list2);
                 return "series";
             }
         }
@@ -155,7 +148,7 @@ public class Maincontroller {
 
     @RequestMapping("/read")
     public String pageinfo(HttpServletRequest request) {
-
+        Iterable<Series> serieslist = seriesRepository.findAll();
         HttpSession session = request.getSession();
         if (session.getAttribute("Name") == null) {
             return "redirect:/login";
@@ -165,7 +158,8 @@ public class Maincontroller {
         Iterable<Comic> b = comicRepository.findAll();
         int seriesid=0;
         int comicindex=0;
-
+        int previouschapterid=-1;
+        int nextchapterid=-1;
         int comicid = Integer.parseInt(request.getParameter("id"));
         int pageindex = Integer.parseInt(request.getParameter("index"));
 
@@ -177,14 +171,35 @@ public class Maincontroller {
             }
         }
 
+        for (Series s : serieslist) {
+            if (s.getId().equals(seriesid)) {
+                session.setAttribute("series",s);
+            }
+        }
         List<Page> list2 = pageRepository.findByComicid(comicid);
         List<Comic> list3 =comicRepository.findBySeriesid(seriesid);
 
+        Boolean aim1=false;
+        Boolean aim2=false;
 
+        for(Comic c:list3){
+            if(aim1 && aim2){
+                break;
+            }
+            if(c.getIndexs().equals(comicindex-1)) {
+                previouschapterid = c.getId();
+                aim1=true;
+            }
+            if(c.getIndexs().equals(comicindex+1)) {
+                nextchapterid = c.getId();
+                aim2=true;
+            }
+        }
         session.setAttribute("chapternumber",list3.size());
         session.setAttribute("comicindex",comicindex);
         session.setAttribute("pagenumber",list2.size());
-
+        session.setAttribute("nextchapterid", nextchapterid);
+        session.setAttribute("previouschapterid",previouschapterid );
         List<Page> list = pageRepository.findByComicidAndIndexs(comicid,pageindex);
 
         if(list.size() == 0){
@@ -200,5 +215,67 @@ public class Maincontroller {
 
     }
 
+    @GetMapping("/administrator")
+    public String administrator() {
+        return "administrator";
+    }
 
+
+    @GetMapping("/author")
+    public String author() {
+        return "author";
+    }
+    @GetMapping("/category")
+    public String category() {
+        return "category";
+    }
+    @GetMapping("/createComic")
+    public String createComic() {
+        return "createComic";
+    }
+    @GetMapping("/drawComic")
+    public String drawComic() {
+        return "drawComic";
+    }
+    @GetMapping("/editInformation")
+    public String editInformation() {
+        return "editInformation";
+    }
+    @GetMapping("/favorite")
+    public String favorite() {
+        return "favorite";
+    }
+    @GetMapping("/follower")
+    public String follower() {
+        return "follower";
+    }
+    @GetMapping("/history")
+    public String history() {
+        return "history";
+    }
+
+    @GetMapping("/manageAuthor")
+    public String manageAuthor() {
+        return "manageAuthor";
+    }
+    @GetMapping("/message")
+    public String message() {
+        return "message";
+    }
+    @GetMapping("/personal")
+    public String personal() {
+        return "personal";
+    }
+    @GetMapping("/search")
+    public String search() {
+        return "search";
+    }
+    @GetMapping("/subscription")
+    public String subscription() {
+        return "subscription";
+    }
+    @GetMapping("/viewChapters")
+    public String viewChapters() {
+        return "viewChapters";
+    }
 }

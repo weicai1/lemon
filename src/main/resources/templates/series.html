@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com  -->
 <!--  Last Published: Sun Mar 31 2019 22:23:33 GMT+0000 (UTC)  -->
-<html data-wf-page="5ca1345cb9de9c45fdb4ecab" data-wf-site="5ca1345cb9de9c489db4ecaa">
+<html data-wf-page="5ca1345cb9de9c45fdb4ecab" data-wf-site="5ca1345cb9de9c489db4ecaa" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <title>series</title>
@@ -24,8 +24,9 @@
   <a id="History" href="#" class="button-2 w-button">History</a>
   <a id="LogOut" href="#" class="button-2 w-button">Log out</a>
 </div>
-<div id="comic" class="w-layout-grid grid-3"><img src="images/Lemon-Man-1.png" id="cover" alt="" class="image-2 w-node-0f9c0b849902-fdb4ecab">
-  <div id="title" class="text-block-2 w-node-0f9c0b849903-fdb4ecab">Title: Lemon Man</div>
+<div id="comic" class="w-layout-grid grid-3">
+  <img th:src="${session.series.getCover()}" id="cover" alt="" class="image-2 w-node-0f9c0b849902-fdb4ecab">
+  <div id="title" class="text-block-2 w-node-0f9c0b849903-fdb4ecab">Title: <span th:text="${session.series.getName()}"></span></div>
   <div id="author" class="text-block-2 w-node-0f9c0b849905-fdb4ecab">Author: Lemon</div>
   <div id="subscribe" class="text-block-2 w-node-0f9c0b849907-fdb4ecab">Subscribe: 4</div>
   <div id="comicRate" class="text-block-2 w-node-0f9c0b849909-fdb4ecab">Rate: 5</div>
@@ -40,9 +41,9 @@
 </div>
 <div class="text-block-3">Chapters:</div>
 <div id="chapterArea" class="w-layout-grid grid-4">
-  <div id="chapter1" class="text-block-4 w-node-1d28ae71ae6d-fdb4ecab"><a href="read?id=1&index=1">Chapter 1</a></div>
-  <div id="chapter1" class="text-block-4 w-node-1d28ae71ae6d-fdb4ecab"><a href="read?id=2&index=1">Chapter 2</a></div>
-</div>
+  <div id="chapter11" class="text-block-4 w-node-1d28ae71ae6d-fdb4ecab" th:each="chapter:${session.comics}">
+    <a th:href="@{/read(id=${chapter.getId()},index=1)}">Chapter  <span th:text="${chapter.getIndexs()}"></span> </a></div>
+  </div>
 <div id="commentDiv" class="div-block-2">
   <div id="commentHeader" class="text-block-5">Comment</div>
   <ul id="comment" class="list">

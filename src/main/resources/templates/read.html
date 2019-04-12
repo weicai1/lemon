@@ -22,17 +22,17 @@
   <a id="Message" href="message" class="button-2 w-button">Message</a>
   <a id="Favorite" href="favorite" class="button-2 w-button">Favorite</a>
   <a id="History" href="history" class="button-2 w-button">History</a>
-  <a id="LogOut" href="signIn" class="button-2 w-button">Log out</a>
+  <a id="LogOut" href="login" class="button-2 w-button">Log out</a>
 </div>
 
 
 <div id="chapterToolbar" class="columns w-row">
   <div class="w-col w-col-3"><a id="previousChapter"  class="button-15 w-button" onmousedown="changechapter(1)">Previous Chapter</a></div>
   <div class="w-col w-col-4">
-    <div id="title" class="text-block">Lemon Man</div>
+    <div id="title" class="text-block"><span th:text="${session.series.getName()}"></span></div>
   </div>
   <div class="w-col w-col-2">
-    <div id="chapter" class="text-block-2">Chapter 1</div>
+    <div id="chapter" class="text-block-2">Chapter <span th:text="${session.comicindex}"></span></div>
   </div>
   <div class="w-col w-col-3"><a id="nextChapter"  class="button-15 w-button" onmousedown="changechapter(2)">Next Chapter</a></div>
 </div>
@@ -99,13 +99,14 @@
     var comicindex=/*[[${session.comicindex}]]*/ 100;
     var chapter =/*[[${session.pagenumber}]]*/ 100;
     var chapternumber=/*[[${session.chapternumber}]]*/ 100;
+    var nextchapterid = /*[[${session.nextchapterid}]]*/ 100;
+    var previouschapterid = /*[[${session.previouschapterid}]]*/ 100;
     if(e==1){
       if(comicindex==1){
         alert("This is the first chapter of this series.");
       }
       else {
-        comicindex=comicindex-1;
-        window.location.href = "/read?id=" + comicindex + "&index=" + index;
+        window.location.href = "/read?id=" + previouschapterid + "&index=" + index;
       }
     }
     else{
@@ -113,8 +114,7 @@
         alert("This is the last chapter of this series.");
       }
       else {
-        comicindex=comicindex+1;
-        window.location.href = "/read?id=" + comicindex + "&index=" + index;
+        window.location.href = "/read?id=" + nextchapterid + "&index=" + index;
       }
     }
   }
