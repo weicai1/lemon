@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
+
+
 @Controller
 public class Maincontroller {
     @Autowired
@@ -31,7 +34,7 @@ public class Maincontroller {
         if (session.getAttribute("Name") != null) {
             return "redirect:/home";
         }
-        return "signin";
+        return "signIn";
     }
 
 
@@ -41,7 +44,7 @@ public class Maincontroller {
         if (session.getAttribute("Name") != null) {
             return "redirect:/home";
         }
-        return "signin";
+        return "signIn";
     }
 
     @PostMapping("/login")
@@ -63,7 +66,7 @@ public class Maincontroller {
             }
         }
         session.setAttribute("login_state", 2);
-        return "signin";
+        return "signIn";
     }
 
 
@@ -277,5 +280,11 @@ public class Maincontroller {
     @GetMapping("/viewChapters")
     public String viewChapters() {
         return "viewChapters";
+    }
+    @RequestMapping("/signout")
+    public String signout(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "redirect:/login";
     }
 }
