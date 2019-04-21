@@ -39,8 +39,8 @@
 
   <div th:if="${session.page == null}">404</div>
   <div th:if="${session.page != null}">
-  <img th:src="${session.page.getPath()}" alt="" class="image"  onmousedown="changePage(event)">
-<script th:inline="javascript">
+  <img th:src="${session.pagecontent}" alt="" class="image"  onmousedown="changePage(event)">
+<script  th:inline="javascript">
   function changePage(e){
     console.log(e.pageX,e.pageY);
     console.log(screen.width,screen.height);

@@ -16,17 +16,28 @@
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
 </head>
 <body class="body">
+<nav class="navbar navbar-purple bg-purple" style="background:#9a81c4">
 <div id="Topbar" class="topbar w-container">
   <a id="Home" href="home" class="button-14 w-button">Home</a>
   <a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a>
   <a id="Message" href="message" class="button-3 w-button">Message</a>
   <a id="Favorite" href="favorite" class="button-4 w-button">Favorite</a>
   <a id="History" href="history" class="button-5 w-button">History</a>
-  <a id="LogOut" href="signout" class="button-7 w-button">Log out</a>
-</div><img src="images/lemon.png" width="172" id="Lemon" alt="">
-<form action="/search" id="SearchBar" class="search w-form">
-  <input type="search" class="search-input w-input" maxlength="256" name="query" placeholder="Search…" id="search" required="">
-  <input type="submit" value="Search" id="Search" class="search-button w-button">
+  <a id="LogOut" href="signIn" class="button-7 w-button">Log out</a>
+</div>
+</nav>
+<img src="images/lemon.png" width="172" id="Lemon" alt="">
+<form  id="SearchBar" class="search w-form" action="search">
+  <input type="text" class="search-input w-input" maxlength="256" name="keyword" placeholder="Search…" id="keyword" required="">
+  <input type="submit" value="Search" onmousedown="search(event)" class="search-button w-button">
+
+  <script th:inline="javascript">
+    function search(e){
+      var s=document.getElementById("keyword").value;
+      console.log(s);
+      window.location.href = "/search?keyword=" + s;
+    }
+  </script>
 </form>
 <div id="Category" class="div-block">
   <a id="Fantasy" href="category" class="w-button">Fantasy</a>
@@ -37,22 +48,71 @@
   <a id="ScienceFiction" href="category" class="button-13 w-button">Science Fiction</a>
 </div>
 <h1 id="Recommendation">Recommendation</h1>
-<div id="RArea" class="div-block-4">
-  <a href="series?id=1"><img src="images/Lemon-Man-1.png" id="Image1" width="150" height="150" alt="" class="image-3"></a>
-  <a href="series?id=2"><img src="images/Peter1_1.png" id="Image2" width="150" height="150" alt="" class="image-3"></a>
-  <a href="series?id=1"><img src="images/Lemon-Man-1.png" id="Image3" width="150" height="150" alt="" class="image-3"></a>
-  <a href="series?id=1"><img src="images/Lemon-Man-1.png" id="Image4" width="150" height="150" alt="" class="image-3"></a>
-  <a href="series?id=1"><img src="images/Lemon-Man-1.png" id="Image5" width="150" height="150" alt="" class="image-3"></a>
-  <a href="series?id=1"><img src="images/Lemon-Man-1.png" id="Image6" width="150" height="150" alt="" class="image-3"></a>
+
+<div id="recommandation"  class="div-block-4" >
+
+  <script th:inline="javascript">
+      var covers=/*[[${session.covers}]]*/0;
+      var div =document.getElementById("recommandation");
+      var i =0;
+      console.log(1);
+      var cover = covers[i];
+      var series = /*[[${session.series}]]*/0;
+      for(var i=0;i<covers.length;i++){
+
+          var img = document.createElement("img");
+          var id =series[i]["id"];
+          var link = "/series?id="+id;
+          img.src=cover;
+          img.id=id;
+        console.log(2);
+          img.style="float: left";
+          img.width="150";
+          img.height="150";
+          img.class="image-3";
+          img.alt="";
+          var a= document.createElement("a");
+          a.href = link;
+        console.log(3);
+          a.appendChild(img);
+          div.appendChild(a);
+
+      }
+      console.log(4);
+  </script>
 </div>
-<h1 id="Top10">Top 6 Newest</h1>
-<div id="TArea" class="div-block-4">s
-  <a  th:href="@{/series?id=1}"><img src="images/Lemon-Man-1.png" id="Image7" width="150" height="150" alt="" class="image-3"></a>
-  <a href="series?id=1"><img src="images/Lemon-Man-1.png" id="Image8" width="150" height="150" alt="" class="image-3"></a>
-  <a href="series?id=1"><img src="images/Lemon-Man-1.png" id="Image9" width="150" height="150" alt="" class="image-3"></a>
-  <a href="series?id=1"><img src="images/Lemon-Man-1.png" id="Image10" width="150" height="150" alt="" class="image-3"></a>
-  <a href="series?id=1"><img src="images/Lemon-Man-1.png" id="Image11" width="150" height="150" alt="" class="image-3"></a>
-  <a href="series?id=1"><img src="images/Lemon-Man-1.png" id="Image12" width="150" height="150" alt="" class="image-3"></a>
+<br><br><br><br><br><br><br><br>
+<h1 id="Top10">Top Newest</h1>
+<div id="topten" class="div-block-4" >
+
+
+  <script th:inline="javascript">
+    var length=/*[[${session.covers.size()}]]*/0;
+    var div =document.getElementById("topten");
+    var i =0;
+    var cover = covers[i];
+    var series = /*[[${session.series}]]*/0;
+    for(var i=0;i<length;i++){
+
+      var img = document.createElement("img");
+
+      var id =series[i]["id"];
+      var link = "/series?id="+id;
+      img.src=cover;
+      img.id=id;
+      img.style="float: left";
+      img.width="150";
+      img.height="150";
+      img.class="image-3";
+      img.alt="";
+      var a= document.createElement("a");
+      a.href = link;
+      a.appendChild(img);
+      div.appendChild(a);
+
+    }
+
+  </script>
 </div>
 <script src="https://d1tdp7z6w94jbb.cloudfront.net/js/jquery-3.3.1.min.js" type="text/javascript" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="js/webflow.js" type="text/javascript"></script>

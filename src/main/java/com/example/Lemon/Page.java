@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Blob;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Page {
@@ -16,7 +17,7 @@ public class Page {
 
     private Integer indexs;
 
-    private String path;
+    private Blob content;
 
     public Integer getId() {
         return id;
@@ -38,12 +39,12 @@ public class Page {
 
     public void setIndexs(Integer indexs){ this.indexs =indexs ; }
 
-    public String getPath() {
-        return path;
+    public Blob getContent() {
+        return content;
     }
 
-    public void setpath(String path) {
-        this.path = path;
+    public void setContent(Blob content) {
+        this.content = content;
     }
 
 }

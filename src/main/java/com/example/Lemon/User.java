@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Blob;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class User {
@@ -18,7 +19,7 @@ public class User {
 
     private String email;
 
-    private String profileimage;
+    private Blob profileimage;
 
     private Boolean issuperuser;
 
@@ -48,11 +49,11 @@ public class User {
         this.password = password;
     }
 
-    public String getProfileimage() {
+    public Blob getProfileimage() {
         return profileimage;
     }
 
-    public void setProfileimage(String profileimage) {
+    public void setProfileimage(Blob profileimage) {
         this.profileimage = profileimage;
     }
 

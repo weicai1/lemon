@@ -17,24 +17,47 @@
 </head>
 <body class="body">
 <div id="Topbar" class="topbar w-container">
-  <a id="Home" href="#" class="button-14 w-button">Home</a>
-  <a id="PersonalCenter" href="#" class="button-2 w-button">Personal Center</a>
-  <a id="Message" href="#" class="button-2 w-button">Message</a>
-  <a id="Favorite" href="#" class="button-2 w-button">Favorite</a>
-  <a id="History" href="#" class="button-2 w-button">History</a>
-  <a id="LogOut" href="#" class="button-2 w-button">Log out</a>
+  <a id="Home" href="home" class="button-14 w-button">Home</a>
+  <a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a>
+  <a id="Message" href="message" class="button-2 w-button">Message</a>
+  <a id="Favorite" href="favorite" class="button-2 w-button">Favorite</a>
+  <a id="History" href="history" class="button-2 w-button">History</a>
+  <a id="LogOut" href="signout" class="button-2 w-button">Log out</a>
 </div>
 <div id="comic" class="w-layout-grid grid-3">
-  <img th:src="${session.series.getCover()}" id="cover" alt="" class="image-2 w-node-0f9c0b849902-fdb4ecab">
+
+  <img th:src="${session.seriescover}" id="cover" alt="" class="image-2 w-node-0f9c0b849902-fdb4ecab">
+
   <div id="title" class="text-block-2 w-node-0f9c0b849903-fdb4ecab">Title: <span th:text="${session.series.getName()}"></span></div>
+
   <div id="author" class="text-block-2 w-node-0f9c0b849905-fdb4ecab">Author: Lemon</div>
-  <div id="subscribe" class="text-block-2 w-node-0f9c0b849907-fdb4ecab">Subscribe: 4</div>
-  <div id="comicRate" class="text-block-2 w-node-0f9c0b849909-fdb4ecab">Rate: 5</div>
+  <div id="subscribe" class="text-block-2 w-node-0f9c0b849907-fdb4ecab">Subscribe: <span th:text="${session.series.getSubnumber()}"></span></div>
+  <div id="comicRate" class="text-block-2 w-node-0f9c0b849909-fdb4ecab">Rate: <span th:text="${session.series.getRate()}"></span></div>
   <div id="category" class="text-block-2 w-node-0f9c0b84990b-fdb4ecab">Category: Funny</div>
 </div>
 <div class="columns w-row">
   <div class="column w-col w-col-4"><a id="read" href="#" class="button-17 w-button">Start Reading</a></div>
-  <div class="column-2 w-col w-col-2"><a id="toSubscribe" href="#" class="button-15 w-button">Subscribe</a></div>
+  <div class="column-2 w-col w-col-2"><a id="toSubscribe" onclick="subscribeComic()" class="button-15 w-button">Subscribe</a></div>
+  <script th:inline="javascript">
+    var seriesid=/*[[${session.series.getId()}]]*/ 0;
+    var ui= /*[[${session.userid}]]*/ 0;
+    var seriesList=/*[[${session.subscribeComicList}]]*/ 0;
+    var subbutton=document.getElementById("toSubscribe");
+    var exist=false;
+    for(var i=0;i<seriesList.length;i++){
+      if(seriesid==seriesList[i])
+        exist=true;
+    }
+    if(!exist){
+      subbutton.innerHTML="Subscribe";
+    }
+    else{
+      subbutton.innerHTML="Unsubscribe";
+    }
+    function subscribeComic(){
+      window.location.href = "/toSubscribe?seriesid="+seriesid;
+    }
+  </script>
   <div class="column-3 w-col w-col-2"><a id="favorite" href="#" class="button-15 w-button">Favorite</a></div>
   <div class="column-4 w-col w-col-2"><a id="like" href="#" class="button-15 w-button">Like</a></div>
   <div class="column-5 w-col w-col-2"><a id="dislike" href="#" class="button-15 w-button">Dislike</a></div>
@@ -43,7 +66,7 @@
 <div id="chapterArea" class="w-layout-grid grid-4">
   <div id="chapter11" class="text-block-4 w-node-1d28ae71ae6d-fdb4ecab" th:each="chapter:${session.comics}">
     <a th:href="@{/read(id=${chapter.getId()},index=1)}">Chapter  <span th:text="${chapter.getIndexs()}"></span> </a></div>
-  </div>
+</div>
 <div id="commentDiv" class="div-block-2">
   <div id="commentHeader" class="text-block-5">Comment</div>
   <ul id="comment" class="list">

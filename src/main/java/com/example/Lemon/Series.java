@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Blob;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Series {
@@ -20,7 +21,7 @@ public class Series {
 
     private Integer subnumber;
 
-    private String cover;
+    private Blob cover;
 
     private Double rate;
 
@@ -66,11 +67,11 @@ public class Series {
         this.subnumber = subnumber;
     }
 
-    public String getCover() {
+    public Blob getCover() {
         return cover;
     }
 
-    public void setCover(String cover) {
+    public void setCover(Blob cover) {
         this.cover = cover;
     }
 

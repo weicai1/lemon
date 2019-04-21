@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com  -->
 <!--  Last Published: Mon Apr 01 2019 02:09:42 GMT+0000 (UTC)  -->
-<html data-wf-page="5ca16b7b4ccfeb0630c1a225" data-wf-site="5ca16b7b4ccfeb3d42c1a224">
+<html data-wf-page="5ca16b7b4ccfeb0630c1a225" data-wf-site="5ca16b7b4ccfeb3d42c1a224" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <title>editInformation</title>
@@ -22,7 +22,16 @@
   <div id="boarder" class="div-block-2">
     <div class="w-form">
       <form id="email-form" name="email-form" data-name="Email Form" class="form"><label for="name" class="field-label">Name</label><input type="text" id="name" name="name" data-name="Name" maxlength="256" class="w-input"><label for="bio" class="field-label-2">Bio</label><input type="text" class="w-input" maxlength="256" name="bio" data-name="bio" id="bio" required="">
-        <div class="text-block-5">Image</div><img src="images/Lemon-Man-1.png" width="240" height="240" alt="" class="image-4"><a href="#" class="button-15 w-button">Choose Image</a><input type="submit" value="Save" data-wait="Please wait..." class="submit-button w-button"></form>
+        <div class="text-block-5">Image</div><img th:src="${session.profileimagepath}" width="240" height="240" alt="" class="image-4"></form>
+
+
+      <form action="editInformation" enctype="multipart/form-data" method="post">
+      Change profile image: <input type="file" name="file"><br/>
+      <input type="submit" value="submit">
+      </form>
+
+
+
       <div class="w-form-done">
         <div>Thank you! Your submission has been received!</div>
       </div>

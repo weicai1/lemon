@@ -12,14 +12,17 @@ public class cssConfiguration extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(
                 "/images/**",
+                "/profileimage/**",
                 "/css/**",
                 "/js/**",
                 "/templates/**")
                 .addResourceLocations(
                         "classpath:/static/images/",
+                        "classpath:/templates/profileimage/",
                         "classpath:/static/css/",
                         "classpath:/static/js/",
                         "classpath:/templates/");
+
     }
 
 }
