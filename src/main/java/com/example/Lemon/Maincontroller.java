@@ -347,9 +347,11 @@ public class Maincontroller {
             //File defaultcover= new File("src/main/resources/static/images/Lemon-Man-1.png");
             //FileInputStream fin = new FileInputStream(defaultcover);
             //ser.setCover();
-            byte[] fileContent = FileUtils.readFileToByteArray(new File("src/main/resources/static/images/Lemon-Man-1.png"));
-            Blob blob = new SerialBlob(fileContent);
-            ser.setCover(blob);
+
+            //byte[] fileContent = FileUtils.readFileToByteArray(new File("/src/main/resources/static/images/Lemon-Man-1.png"));
+            //Blob blob = new SerialBlob(fileContent);
+            //ser.setCover(blob);
+
             seriesRepository.save(ser);
             Comic cm = new Comic();
             cm.setSeriesid(ser.getId());
@@ -445,7 +447,7 @@ public class Maincontroller {
         if (session.getAttribute("userid") == null) {
             return "redirect:/login";
         }
-        String fileName = file.getOriginalFilename();
+       /* String fileName = file.getOriginalFilename();
         String uuid = UUID.randomUUID().toString().replaceAll("-","");
         String suffix = fileName.substring(fileName.lastIndexOf("."));
         fileName = "src/main/resources/templates/profileimage/"+uuid+suffix;
@@ -460,7 +462,7 @@ public class Maincontroller {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
         User u = userRepository.findById(Integer.parseInt(""+session.getAttribute("userid"))).get();
         //u.setProfileimage("profileimage/"+uuid+suffix);
         Blob blob = new SerialBlob(file.getBytes());

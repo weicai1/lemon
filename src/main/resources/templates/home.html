@@ -55,11 +55,9 @@
       var covers=/*[[${session.covers}]]*/0;
       var div =document.getElementById("recommandation");
       var i =0;
-      console.log(1);
-      var cover = covers[i];
       var series = /*[[${session.series}]]*/0;
       for(var i=0;i<covers.length;i++){
-
+        var cover = covers[i];
           var img = document.createElement("img");
           var id =series[i]["id"];
           var link = "/series?id="+id;
@@ -90,10 +88,10 @@
     var length=/*[[${session.covers.size()}]]*/0;
     var div =document.getElementById("topten");
     var i =0;
-    var cover = covers[i];
+
     var series = /*[[${session.series}]]*/0;
     for(var i=0;i<length;i++){
-
+      var cover = covers[i];
       var img = document.createElement("img");
 
       var id =series[i]["id"];
