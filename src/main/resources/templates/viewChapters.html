@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com  -->
 <!--  Last Published: Mon Apr 01 2019 02:08:00 GMT+0000 (UTC)  -->
-<html data-wf-page="5ca16e36f4c36eaa76809e6d" data-wf-site="5ca16e36f4c36e1038809e6c">
+<html data-wf-page="5ca16e36f4c36eaa76809e6d" data-wf-site="5ca16e36f4c36e1038809e6c" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <title>viewChapters</title>
@@ -16,9 +16,62 @@
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
 </head>
 <body class="body">
-  <div id="Topbar" class="topbar w-container"><a id="Home" href="#" class="button-14 w-button">Home</a><a id="PersonalCenter" href="#" class="button-2 w-button">Personal Center</a><a id="Message" href="#" class="button-2 w-button">Message</a><a id="Favorite" href="#" class="button-2 w-button">Favorite</a><a id="History" href="#" class="button-2 w-button">History</a><a id="LogOut" href="#" class="button-2 w-button">Log out</a></div>
-  <div id="chapter" class="w-layout-grid grid-4"><img src="images/Lemon-Man-1.png" id="cover" alt="" class="image-2 w-node-703136f8adfa-76809e6d">
-    <div id="name" class="text-block-2 w-node-703136f8adfb-76809e6d">Chapter 1</div><a id="delete" href="#" class="button-15 w-node-9f4d0421c46a-76809e6d w-button">Detele</a></div>
+  <div id="Topbar" class="topbar w-container"><a id="Home" href="home" class="button-14 w-button">Home</a><a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a><a id="Message" href="message" class="button-2 w-button">Message</a><a id="Favorite" href="favorite" class="button-2 w-button">Favorite</a><a id="History" href="history" class="button-2 w-button">History</a><a id="LogOut" href="signout" class="button-2 w-button">Log out</a></div>
+  <div id="chapter" class="w-layout-grid grid-4">
+    <!--
+    <img th:src="${session.cover}" id="cover" alt="" class="image-2 w-node-703136f8adfa-76809e6d">
+    <div id="name" class="text-block-2 w-node-703136f8adfb-76809e6d">Chapter 1</div><a id="delete" href="#" class="button-15 w-node-9f4d0421c46a-76809e6d w-button">Detele</a>
+    -->
+  </div>
+  <div id="add"> </div>
+  <script th:inline="javascript">
+    var pane= document.getElementById("chapter");
+    var cn =/*[[${session.currentseries.getChapternumber()}]]*/ 0;
+    var ccover = /*[[${session.ccover}]]*/0;
+    console.log(cn);
+    for(var i=0;i<cn;i++){
+      var img= document.createElement("img");
+      img.src=ccover[i];
+      img.id="cover";
+      img.alt="";
+      img.class="image-2 w-node-703136f8adfa-76809e6d";
+      pane.appendChild(img);
+      var namediv =document.createElement("div");
+      namediv.id="name";
+      namediv.class="text-block-2 w-node-703136f8adfb-76809e6d";
+      namediv.innerHTML="Chapter "+(i+1);
+      pane.appendChild(namediv);
+
+      /*
+      var editbutton = document.createElement("a");
+      editbutton.id="edit";
+      editbutton.href="addComic?chapterindex="+(i+1);
+      editbutton.innerHTML="edit";
+      editbutton.class="button-15 w-node-9f4d0421c46a-76809e6d w-button";
+      pane.appendChild(editbutton);
+  */
+
+      var delebutton = document.createElement("a");
+      delebutton.id="delete";
+      delebutton.href="#";
+      delebutton.innerHTML="Delete";
+      delebutton.class="button-15 w-node-9f4d0421c46a-76809e6d w-button";
+      pane.appendChild(delebutton);
+
+
+    }
+
+    var add =document.getElementById("add");
+    var addbutton = document.createElement("a");
+    addbutton.id="add";
+    addbutton.href="addComic?create=1&chapterindex="+(cn+1);
+    addbutton.innerHTML="add";
+    addbutton.class="button-15 w-node-9f4d0421c46a-76809e6d w-button";
+    add.appendChild(addbutton);
+  </script>
+
+
+
   <script src="https://d1tdp7z6w94jbb.cloudfront.net/js/jquery-3.3.1.min.js" type="text/javascript" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="js/webflow.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->

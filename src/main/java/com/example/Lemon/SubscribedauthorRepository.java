@@ -8,6 +8,7 @@ import java.util.List;
 // CRUD refers Create, Read, Update, Delete
 
 public interface SubscribedauthorRepository extends CrudRepository<Subscribedauthor, Integer> {
-    List<Subscribedauthor> findByAuthoridAndUserid(Integer authorId, Integer userId);
-    List<Subscribedauthor> findByUserid(Integer userId);
+    List<Subscribedauthor> findByAuthoridAndUserid(Integer authorId, Integer userid);
+    List<Subscribedauthor> findByUserid(Integer userid);
+    List<Subscribedauthor> findByAuthorid(Integer authorid);
 }

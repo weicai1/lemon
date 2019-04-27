@@ -14,6 +14,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.tomcat.util.codec.binary.StringUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,15 @@ public class Maincontroller {
     private SubscribedcomicRepository subscribedcomicRepository;
     @Autowired
     private SubscribedauthorRepository subscribedauthorRepository;
+    @Autowired
+    private FavoriteRepository favoriteRepository;
+    @Autowired
+    private HistoryRepository historyRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+
+
 
     @GetMapping("/")
     public String aaa(Model model, HttpServletRequest request) {
@@ -148,19 +158,15 @@ public class Maincontroller {
             subscribeAuthorList.add(sal.get(i).getAuthorid());
         }
         session.setAttribute("subscribeAuthorList",subscribeAuthorList);
-
-                                ////
-
         Iterable<Series> alls = seriesRepository.findAll();
 
-        int limit = 6;
         ArrayList<Series> sorts = new ArrayList<>();
         for (Series s : alls) {
             sorts.add(s);
         }
         for (int i = 0;i<sorts.size()-1;i++){
             for(int j = i+1;j<sorts.size();j++){
-                if(sorts.get(i).getSubnumber()<sorts.get(i).getSubnumber()){
+                if(sorts.get(i).getSubnumber()<sorts.get(j).getSubnumber()){
                     Series temp = sorts.get(i);
                     sorts.set(i,sorts.get(j));
                     sorts.set(j,temp);
@@ -168,7 +174,11 @@ public class Maincontroller {
             }
         }
         ArrayList<String> al = new ArrayList<String>();
+        int count=0;
         for(Series se:sorts){
+            if(count>=10){
+                break;
+            }
             Blob cover=se.getCover();
             String dataurl="";
             if(cover==null){
@@ -179,6 +189,7 @@ public class Maincontroller {
             }
             al.add(dataurl);
             se.setCover(null);
+            count+=1;
         }
         session.setAttribute("series",sorts);
         session.setAttribute("covers",al);
@@ -186,11 +197,13 @@ public class Maincontroller {
         return "home";
     }
 
+
     @RequestMapping("/series")
     public String seriesinfo(HttpServletRequest request) throws SQLException {
         Iterable<Series> a = seriesRepository.findAll();
-
         HttpSession session = request.getSession();
+        session.setAttribute("seriesname",null);
+        session.setAttribute("seriestag",null);
         if (session.getAttribute("userid") == null) {
             return "redirect:/login";
         }
@@ -211,6 +224,26 @@ public class Maincontroller {
                 session.setAttribute("seriescover",dataurl);
                 List<Comic> list2 =comicRepository.findBySeriesid(seriesid);
                 session.setAttribute("comics",list2);
+                Iterable<User> user = userRepository.findAll();
+                for(User u:user){
+                    if(u.getId()==s.getAuthorid()){
+                        session.setAttribute("seriesname",u.getName());
+                    }
+                }
+                Iterable<Category> category = categoryRepository.findAll();
+                String tag="";
+                for(Category c:category){
+                    if(c.getSeriesid()==s.getId()){
+                        tag+=c.getTag();
+                        tag+=",";
+                    }
+                }
+                if (tag.length() > 0) {
+                    tag = tag.substring(0, tag.length() - 1);
+                }
+                session.setAttribute("seriestag",tag);
+
+
                 return "series";
             }
         }
@@ -244,7 +277,6 @@ public class Maincontroller {
                 break;
             }
         }
-
         for (Series s : serieslist) {
             if (s.getId().equals(seriesid)) {
                 session.setAttribute("series",s);
@@ -275,7 +307,6 @@ public class Maincontroller {
         session.setAttribute("nextchapterid", nextchapterid);
         session.setAttribute("previouschapterid",previouschapterid );
         List<Page> list = pageRepository.findByComicidAndIndexs(comicid,pageindex);
-
         if(list.size() == 0){
             session.setAttribute("page",null);
             session.setAttribute("status",2);
@@ -283,6 +314,21 @@ public class Maincontroller {
         else{
             Blob page=list.get(0).getContent();
             String dataurl = "data:image/png;base64,"+DatatypeConverter.printBase64Binary(page.getBytes(1,(int)page.length()));
+
+            List<History> his = historyRepository.findBySeriesid(seriesid);
+            if(his.size()!=0){
+                historyRepository.deleteById(his.get(0).getId());
+            }
+
+            History hi = new History();
+            hi.setSeriesid(seriesid);
+            hi.setUserid(Integer.parseInt(session.getAttribute("userid")+""));
+            hi.setComicid(comicid);
+            hi.setPageindex(pageindex);
+            historyRepository.save(hi);
+
+
+
             session.setAttribute("page",list.get(0));
             session.setAttribute("status",1);
             session.setAttribute("pagecontent",dataurl);
@@ -291,7 +337,6 @@ public class Maincontroller {
         return "read";
 
     }
-
     @GetMapping("/administrator")
     public String administrator() {
         return "administrator";
@@ -299,11 +344,113 @@ public class Maincontroller {
 
 
     @GetMapping("/author")
-    public String author() {
+    public String author(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("userid") == null) {
+            return "redirect:/login";
+        }
+        session.setAttribute("authorState", null);
+        session.setAttribute("author",null);
+        session.setAttribute("subnumber",null);
+
+        int authorid=Integer.parseInt(request.getParameter("id"));
+        Iterable<User> users = userRepository.findAll();
+        for (User u : users) {
+            if (u.getId()==authorid) {
+                session.setAttribute("author",u);
+                List<Subscribedauthor> sa=subscribedauthorRepository.findByAuthorid(u.getId());
+                session.setAttribute("subnumber",sa.size());
+            }
+        }
         return "author";
     }
-    @GetMapping("/category")
-    public String category() {
+
+    @RequestMapping("/category")
+    public String category(HttpServletRequest request) throws SQLException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("userid") == null) {
+            return "redirect:/login";
+        }
+
+        session.setAttribute("catState",null);
+        String inp = request.getParameter("categoryName");
+        String inpsort = request.getParameter("sortBy");
+        List<Series> sl = new ArrayList<>();
+        Iterable<Category> allcat = categoryRepository.findByTag(inp);
+
+        for(Category ca:allcat){
+            sl.add(seriesRepository.getById(ca.getSeriesid()));
+        }
+
+        Collections.sort(sl, Series.SeriesSubscriptionComparator);
+        if (inpsort != null){
+            if (inpsort.equals("updateTime")){
+                Collections.sort(sl, Series.SeriesIdComparator);
+            }
+            else if (inpsort.equals("subscription")) {
+                Collections.sort(sl, Series.SeriesSubscriptionComparator);
+            }
+            else if (inpsort.equals("rate")){
+                Collections.sort(sl, Series.SeriesRateComparator);
+            }
+        }
+        if(sl!=null && sl.size()>0){
+            session.setAttribute("catState",1);
+            ArrayList<String> covers=new ArrayList<String>();
+            ArrayList<String> names =new ArrayList<String>();
+            ArrayList<String> authors =new ArrayList<String>();
+            ArrayList<String> subscribes =new ArrayList<String>();
+            ArrayList<String> rates =new ArrayList<String>();
+            ArrayList<String> categorys =new ArrayList<String>();
+            int count=0;
+            for(Series s:sl){
+                if(count>=10){
+                    break;
+                }
+                names.add(s.getName());
+                User u=userRepository.findById(s.getAuthorid()).get();
+                authors.add(u.getName());
+                subscribes.add(s.getSubnumber()+"");
+                rates.add(s.getRate()+"");
+                Iterable<Category> category = categoryRepository.findAll();
+                String tag="";
+                for(Category c:category){
+                    if(c.getSeriesid()==s.getId()){
+                        tag+=c.getTag();
+                        tag+=",";
+                    }
+                }
+                if (tag.length() > 0) {
+                    tag = tag.substring(0, tag.length() - 1);
+                }
+                categorys.add(tag);
+                Blob cover=s.getCover();
+                s.setCover(null);
+                String dataurl="";
+                if(cover==null){
+                    dataurl="";
+                }
+                else{
+                    dataurl = "data:image/png;base64,"+DatatypeConverter.printBase64Binary(cover.getBytes(1,(int)cover.length()));
+                }
+                covers.add(dataurl);
+                count+=1;
+            }
+            session.setAttribute("covers",covers);
+            session.setAttribute("names",names);
+            session.setAttribute("authors",authors);
+            session.setAttribute("subscribes",subscribes);
+            session.setAttribute("rates",rates);
+            session.setAttribute("categorys",categorys);
+            session.setAttribute("catlist",sl);
+
+        }
+
+
+        else{
+            session.setAttribute("catState",2);
+        }
+
         return "category";
     }
     @RequestMapping("/createComic")
@@ -353,6 +500,14 @@ public class Maincontroller {
             //ser.setCover(blob);
 
             seriesRepository.save(ser);
+            String[] tags=request.getParameter("tags").split(",");
+            for(String s : tags){
+                Category cat=new Category();
+                cat.setSeriesid(ser.getId());
+                cat.setTag(s);
+                categoryRepository.save(cat);
+            }
+
             Comic cm = new Comic();
             cm.setSeriesid(ser.getId());
             cm.setIndex(1);
@@ -419,6 +574,7 @@ public class Maincontroller {
     @GetMapping("/editInformation")
     public String editInformation(HttpServletRequest request) throws SQLException {
         HttpSession session = request.getSession();
+        session.setAttribute("editstate",null);
         if (session.getAttribute("userid") == null) {
             return "redirect:/login";
         }
@@ -436,17 +592,20 @@ public class Maincontroller {
             dataurl = "data:image/png;base64,"+DatatypeConverter.printBase64Binary(pip.getBytes(1,(int)pip.length()));
         }
 
-
+        u.setProfileimage(null);
+        session.setAttribute("currentuser",u);
         session.setAttribute("profileimagepath",dataurl);
         return "editInformation";
     }
 
     @PostMapping("/editInformation")
     public String editInformation2(HttpServletRequest request, @RequestParam("file") MultipartFile file) throws IOException, SQLException {
+
         HttpSession session = request.getSession();
         if (session.getAttribute("userid") == null) {
             return "redirect:/login";
         }
+        session.setAttribute("editstate",null);
        /* String fileName = file.getOriginalFilename();
         String uuid = UUID.randomUUID().toString().replaceAll("-","");
         String suffix = fileName.substring(fileName.lastIndexOf("."));
@@ -463,20 +622,42 @@ public class Maincontroller {
                 e.printStackTrace();
             }
         }*/
+    //    String name= request.getParameter("name");
+        String bio =request.getParameter("bio");
+
+
+    //    Optional check = userRepository.findByName(name);
+
         User u = userRepository.findById(Integer.parseInt(""+session.getAttribute("userid"))).get();
-        //u.setProfileimage("profileimage/"+uuid+suffix);
-        Blob blob = new SerialBlob(file.getBytes());
-        u.setProfileimage(blob);
+
+
+
+        // if this new id is already used by others
+     //   if (!name.equals(u.getName()) && check!= Optional.empty()){
+     //       session.setAttribute("editstate",2);
+     //       return "editInformation";
+     //   }
+
+
+        String temp=DatatypeConverter.printBase64Binary(file.getBytes());
+
+        if(!temp.equals("")) {
+            String dataurl = "data:image/png;base64," + temp;
+            session.setAttribute("profileimagepath", dataurl);
+            //u.setProfileimage("profileimage/"+uuid+suffix);
+            Blob blob = new SerialBlob(file.getBytes());
+            u.setProfileimage(blob);
+        }
+    //    u.setName(name);
+        u.setSignature(bio);
         userRepository.save(u);
-        //session.setAttribute("profileimagepath","profileimage/"+uuid+suffix);
+        session.setAttribute("currentuser",u);
 
-
-        String dataurl = "data:image/png;base64,"+DatatypeConverter.printBase64Binary(file.getBytes());
-        session.setAttribute("profileimagepath",dataurl);
         //StringBuilder sb = new StringBuilder();
         //sb.append("data:image/png;base64,");
         //sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(file.getBytes(), false)));
         //contourChart = sb.toString();
+        session.setAttribute("editstate",1);
         return "editInformation";
     }
     @GetMapping("/favorite")
@@ -487,8 +668,74 @@ public class Maincontroller {
     public String follower() {
         return "follower";
     }
+
     @GetMapping("/history")
-    public String history() {
+    public String history(HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("userid") == null) {
+            return "redirect:/login";
+        }
+        session.setAttribute("historyState",null);
+        session.setAttribute("historycovers",null);
+        session.setAttribute("historynames",null);
+        session.setAttribute("historychapters",null);
+        session.setAttribute("historypages",null);
+        session.setAttribute("historyserieslist",null);
+        ArrayList<History> sl = new ArrayList<>();
+        Iterable<History> alls = historyRepository.findAll();
+        for(History h:alls){
+            sl.add(h);
+        }
+        if(sl!=null && sl.size()>0){
+            for (int i = 0;i<sl.size()-1;i++){
+                for(int j = i+1;j<sl.size();j++){
+                    if(sl.get(i).getId()<sl.get(j).getId()){
+                        History temp = sl.get(i);
+                        sl.set(i,sl.get(j));
+                        sl.set(j,temp);
+                    }
+                }
+            }
+
+            session.setAttribute("historyState",1);
+
+
+            ArrayList<String> covers=new ArrayList<String>();
+            ArrayList<String> names=new ArrayList<String>();
+            ArrayList<Integer> chapters=new ArrayList<Integer>();
+            ArrayList<Integer> pages=new ArrayList<Integer>();
+            int count=0;
+            for(History history:sl){
+                if(count>=10){
+                    break;
+                }
+                Series s=seriesRepository.findById(history.getSeriesid()).get();
+                names.add(s.getName());
+                chapters.add(history.getComicid());
+                pages.add(history.getPageindex());
+                Blob cover=s.getCover();
+                s.setCover(null);
+                String dataurl="";
+                if(cover==null){
+                    dataurl="";
+                }
+                else{
+                    dataurl = "data:image/png;base64,"+DatatypeConverter.printBase64Binary(cover.getBytes(1,(int)cover.length()));
+                }
+                covers.add(dataurl);
+                count+=1;
+            }
+            session.setAttribute("historycovers",covers);
+            session.setAttribute("historynames",names);
+            session.setAttribute("historychapters",chapters);
+            session.setAttribute("historypages",pages);
+            session.setAttribute("historyserieslist",sl);
+        }
+        else{
+            session.setAttribute("historyState",2);
+            //empty
+        }
+
         return "history";
     }
 
@@ -541,7 +788,46 @@ public class Maincontroller {
         return "message";
     }
     @GetMapping("/personal")
-    public String personal() {
+    public String personal(HttpServletRequest request) throws SQLException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("userid") == null) {
+            return "redirect:/login";
+        }
+        List<Series> works = seriesRepository.findByAuthorid(Integer.parseInt(""+session.getAttribute("userid")));
+        User user = userRepository.findById(Integer.parseInt((""+session.getAttribute("userid")))).get();
+        Blob userimage = user.getProfileimage();
+        String dataurl="";
+        if(userimage==null){
+            dataurl="";
+        }
+        else{
+            dataurl = "data:image/png;base64,"+DatatypeConverter.printBase64Binary(userimage.getBytes(1,(int)userimage.length()));
+        }
+        user.setProfileimage(null);
+        ArrayList<Series> workslist =new ArrayList<Series>();
+
+        ArrayList<String> covers=new ArrayList<String>();
+
+
+        for(Series s : works){
+            Blob cover=s.getCover();
+            s.setCover(null);
+            workslist.add(s);
+            String dataurl2="";
+            if(cover==null){
+                dataurl2="";
+            }
+            else{
+                dataurl2 = "data:image/png;base64,"+DatatypeConverter.printBase64Binary(cover.getBytes(1,(int)cover.length()));
+            }
+            covers.add(dataurl2);
+        }
+
+        session.setAttribute("personalcovers",covers);
+        session.setAttribute("profileimagepath",dataurl);
+        session.setAttribute("currentuser",user);
+        session.setAttribute("works",workslist);
+
         return "personal";
     }
     @RequestMapping("/search")
@@ -594,14 +880,155 @@ public class Maincontroller {
 
         return "search";
     }
-    @GetMapping("/subscription")
-    public String subscription() {
-        return "subscription";
-    }
-    @GetMapping("/viewChapters")
-    public String viewChapters() {
+
+    @RequestMapping("/viewChapters")
+    public String viewChapters(HttpServletRequest request) throws SQLException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("userid") == null) {
+            return "redirect:/login";
+        }
+        String del=request.getParameter("delete");
+        int seriesid=Integer.parseInt(request.getParameter("id"));
+        Series s = seriesRepository.findById(seriesid).get();
+        if(s.getAuthorid()!=Integer.parseInt(session.getAttribute("userid")+"")){
+            return "redirect:/home";
+        }
+        if(del!=null && del.equals("1")){
+
+        }
+        Blob cover=s.getCover();
+        session.setAttribute("tempcover",cover);
+        s.setCover(null);
+        String dataurl="";
+        if(cover==null){
+            dataurl="";
+        }
+        else{
+            dataurl = "data:image/png;base64,"+DatatypeConverter.printBase64Binary(cover.getBytes(1,(int)cover.length()));
+        }
+
+        int cn = s.getChapternumber();
+        List<Comic> d = comicRepository.findBySeriesid(seriesid);
+        ArrayList<Comic> chapters=new ArrayList<Comic>();
+        for (int i=0;i<cn;i++){
+            for (int j=0;j<cn;j++){
+                if(d.get(j).getIndexs()==i+1){
+                    chapters.add(d.get(j));
+                }
+            }
+        }
+        ArrayList<String> Chpatercover=new ArrayList<String>();
+        for(Comic c:chapters){
+            int cid=c.getId();
+            Page p =pageRepository.findByComicidAndIndexs(cid,1).get(0);
+            Blob ccover = p.getContent();
+            String curl="";
+            if(ccover==null){
+                curl="";
+            }
+            else{
+                curl = "data:image/png;base64,"+DatatypeConverter.printBase64Binary(ccover.getBytes(1,(int)ccover.length()));
+            }
+            Chpatercover.add(curl);
+        }
+
+        session.setAttribute("ccover",Chpatercover);
+        session.setAttribute("chapters",chapters);
+        session.setAttribute("cover",dataurl);
+        session.setAttribute("currentseries",s);
+
         return "viewChapters";
     }
+    @GetMapping("/addComic")
+    public String addChapter(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if (session.getAttribute("userid") == null) {
+            return "redirect:/login";
+        }
+
+        Series s =(Series)session.getAttribute("currentseries");
+
+        String chapterindex=request.getParameter("chapterindex");
+        if(s==null || s.getAuthorid()!=Integer.parseInt(""+session.getAttribute("userid"))){
+            return "redirect:/home";
+        }
+
+        String create = request.getParameter("create");
+        if(create!=null && create.equals("1")){
+
+            //session.setAttribute("Pindex", index);
+            s.setChapternumber(s.getChapternumber() + 1);
+            s.setCover((Blob) session.getAttribute("tempcover"));
+            seriesRepository.save(s);
+            //s.setCover(null);
+
+            Comic cm = new Comic();
+            cm.setSeriesid(s.getId());
+            cm.setIndex(Integer.parseInt(chapterindex));
+            comicRepository.save(cm);
+            session.setAttribute("drawSeries", s);
+            session.setAttribute("drawnumber", 1);
+            session.setAttribute("drawcomic", cm);
+            session.setAttribute("Pindex", 1);
+            session.setAttribute("seriesname", s.getName());
+
+            return "addComic";
+
+        }
+        else {
+
+                String index = request.getParameter("index");
+                if(index==null || session.getAttribute("seriesname")==null){
+                    return "redirect:/home";
+                }
+                session.setAttribute("Pindex",index);
+                return "addComic";
+
+
+
+
+        }
+    }
+
+
+    @PostMapping("/addComic")
+    public String addComic2(HttpServletRequest request) throws IOException, SQLException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("userid") == null) {
+            return "redirect:/login";
+        }
+        String mission = request.getParameter("mission");
+        System.out.println(mission);
+        if(mission!=null && mission.equals("1")){
+            String seriesName=""+session.getAttribute("seriesname");
+            session.setAttribute("drawnumber", Integer.parseInt(""+session.getAttribute("drawnumber"))+1);
+            session.setAttribute("Pindex",Integer.parseInt(""+session.getAttribute("drawnumber")));
+            return "redirect:/addComic?index="+session.getAttribute("drawnumber");
+        }
+        if(mission!=null && mission.equals("2")){
+            String seriesName=""+session.getAttribute("seriesname");
+            session.setAttribute("drawnumber", Integer.parseInt(""+session.getAttribute("drawnumber"))-1);
+            session.setAttribute("Pindex",Integer.parseInt(""+session.getAttribute("drawnumber")));
+            return "redirect:/addComic?index="+session.getAttribute("drawnumber");
+        }
+        String m=request.getParameter("data");
+        String paindex= ""+session.getAttribute("Pindex");
+        if(m!=null){
+            byte[] imagedata = DatatypeConverter.parseBase64Binary(m.substring(m.indexOf(",") + 1));
+            Blob blob = new SerialBlob(imagedata);
+            Page p = new Page();
+            p.setContent(blob);
+            int i2= Integer.parseInt(paindex);
+            int c2= ((Comic)session.getAttribute("drawcomic")).getId();
+            p.setIndexs(i2);
+            p.setComicid(c2);
+            pageRepository.save(p);
+        }
+
+        return "addComic";
+    }
+
+
     @RequestMapping("/signout")
     public String signout(HttpServletRequest request){
         HttpSession session = request.getSession();
@@ -617,37 +1044,236 @@ public class Maincontroller {
         }
         int subscriber = (Integer)session.getAttribute("userid");
         int subscribedSeries = Integer.parseInt(request.getParameter("seriesid")+"");
+        String issub=request.getParameter("subscribe");
+        if(issub.equals("Unsubscribe")){
+            List<Subscribedcomic> scl = subscribedcomicRepository.findBySeriesidAndUserid(subscribedSeries,subscriber);
+            if(scl.size()!=0){
+                List<Subscribedcomic> sc = subscribedcomicRepository.findBySeriesidAndUserid(subscribedSeries,subscriber);
+                subscribedcomicRepository.deleteById(sc.get(0).getId());
+                Series seri=seriesRepository.findById(subscribedSeries).get();
+                seri.setSubnumber(seri.getSubnumber()-1);
+                seriesRepository.save(seri);
+                ArrayList<Subscribedcomic> sbl = (ArrayList<Subscribedcomic>)subscribedcomicRepository.findByUserid(Integer.parseInt(""+session.getAttribute("userid")));
+                ArrayList<Integer> subscribeComicList=new ArrayList<Integer>();
+                for(int i=0;i<sbl.size();i++){
+                    subscribeComicList.add(sbl.get(i).getSeriesid());
+                }
+                session.setAttribute("subscribeComicList",subscribeComicList);
 
-        List<Subscribedcomic> scl = subscribedcomicRepository.findBySeriesidAndUserid(subscribedSeries,subscriber);
-        if(scl.size()!=0){
-            List<Subscribedcomic> sc = subscribedcomicRepository.findBySeriesidAndUserid(subscribedSeries,subscriber);
-            subscribedcomicRepository.deleteById(sc.get(0).getId());
-            Series seri=seriesRepository.findById(subscribedSeries).get();
-            seri.setSubnumber(seri.getSubnumber()-1);
-            ArrayList<Subscribedcomic> sbl = (ArrayList<Subscribedcomic>)subscribedcomicRepository.findByUserid(Integer.parseInt(""+session.getAttribute("userid")));
-            ArrayList<Integer> subscribeComicList=new ArrayList<Integer>();
-            for(int i=0;i<sbl.size();i++){
-                subscribeComicList.add(sbl.get(i).getSeriesid());
+                return "series";
+
             }
-            session.setAttribute("subscribeComicList",subscribeComicList);
-
-            return "series";
+            else{
+                return "series";
+            }
+        }
+        else {
+            List<Subscribedcomic> scl = subscribedcomicRepository.findBySeriesidAndUserid(subscribedSeries,subscriber);
+            if(scl.size()==0){
+                Subscribedcomic sc = new Subscribedcomic();
+                sc.setSeriesid(subscribedSeries);
+                sc.setUserid(subscriber);
+                subscribedcomicRepository.save(sc);
+                ArrayList<Subscribedcomic> sbl = (ArrayList<Subscribedcomic>) subscribedcomicRepository.findByUserid(Integer.parseInt("" + session.getAttribute("userid")));
+                ArrayList<Integer> subscribeComicList = new ArrayList<Integer>();
+                for (int i = 0; i < sbl.size(); i++) {
+                    subscribeComicList.add(sbl.get(i).getSeriesid());
+                }
+                session.setAttribute("subscribeComicList", subscribeComicList);
+                Series seri = seriesRepository.findById(subscribedSeries).get();
+                seri.setSubnumber(seri.getSubnumber() + 1);
+                seriesRepository.save(seri);
+                return "series";
+            }
+            else{
+                return "series";
+            }
 
         }
-        Subscribedcomic sc = new Subscribedcomic();
-        sc.setSeriesid(subscribedSeries);
-        sc.setUserid(subscriber);
-        subscribedcomicRepository.save(sc);
-        ArrayList<Subscribedcomic> sbl = (ArrayList<Subscribedcomic>)subscribedcomicRepository.findByUserid(Integer.parseInt(""+session.getAttribute("userid")));
-        ArrayList<Integer> subscribeComicList=new ArrayList<Integer>();
-        for(int i=0;i<sbl.size();i++){
-            subscribeComicList.add(sbl.get(i).getSeriesid());
-        }
-        session.setAttribute("subscribeComicList",subscribeComicList);
-        Series seri=seriesRepository.findById(subscribedSeries).get();
-        seri.setSubnumber(seri.getSubnumber()+1);
-        return "series";
     }
 
+
+
+    @RequestMapping("/toSubscribeAuthor")
+    public String toSubscribeAuthor(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("userid") == null) {
+            return "redirect:/login";
+        }
+        int subscriber = (Integer)session.getAttribute("userid");
+        int subscribedAuthor = Integer.parseInt(request.getParameter("authorid")+"");
+        String issub=request.getParameter("subscribe");
+        if(issub.equals("Unsubscribe")) {
+            List<Subscribedauthor> sal = subscribedauthorRepository.findByAuthoridAndUserid(subscribedAuthor,subscriber);
+            if (sal.size() != 0) {
+                subscribedauthorRepository.deleteById(sal.get(0).getId());
+                User us = userRepository.findById(subscribedAuthor).get();
+                ArrayList<Subscribedauthor> sbl = (ArrayList<Subscribedauthor>) subscribedauthorRepository.findByUserid(Integer.parseInt("" + session.getAttribute("userid")));
+                ArrayList<Integer> subscribeComicList = new ArrayList<Integer>();
+                for (int i = 0; i < sbl.size(); i++) {
+                    subscribeComicList.add(sbl.get(i).getAuthorid());
+                }
+                session.setAttribute("subscribeAuthorList", subscribeComicList);
+
+                return "author";
+
+            }
+            else{
+                return "author";
+            }
+        }
+        else {
+            List<Subscribedauthor> sal = subscribedauthorRepository.findByAuthoridAndUserid(subscribedAuthor,subscriber);
+            if (sal.size() == 0) {
+                Subscribedauthor sa = new Subscribedauthor();
+                sa.setAuthorid(subscribedAuthor);
+                sa.setUserid(subscriber);
+                subscribedauthorRepository.save(sa);
+                ArrayList<Subscribedauthor> sbl = (ArrayList<Subscribedauthor>) subscribedauthorRepository.findByUserid(Integer.parseInt("" + session.getAttribute("userid")));
+                ArrayList<Integer> subscribeAuthorList = new ArrayList<Integer>();
+                for (int i = 0; i < sbl.size(); i++) {
+                    subscribeAuthorList.add(sbl.get(i).getAuthorid());
+                }
+                session.setAttribute("subscribeAuthorList", subscribeAuthorList);
+                User us = userRepository.findById(subscriber).get();
+                return "author";
+            }
+            else{
+                return "author";
+            }
+        }
+    }
+
+
+    @RequestMapping("/like")
+    public String like(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("userid") == null) {
+            return "redirect:/login";
+        }
+        session.setAttribute("likeitem",null);
+        int liker = (Integer)session.getAttribute("userid");
+        int likedSeries = Integer.parseInt(request.getParameter("seriesid")+"");
+        String likeState=request.getParameter("state");
+
+        if(likeState.equals("dislike")){
+            List<Favorite> scl = favoriteRepository.findBySeriesidAndUserid(likedSeries,liker);
+            System.out.println(scl);
+            if(scl.size()!=0){
+                Favorite f=favoriteRepository.findBySeriesidAndUserid(likedSeries,liker).get(0);
+                f.setLikestate("dislike");
+                favoriteRepository.save(f);
+                ArrayList<Favorite> sbl = (ArrayList<Favorite>)favoriteRepository.findByUserid(Integer.parseInt(""+session.getAttribute("userid")));
+                ArrayList<Integer> likeList=new ArrayList<Integer>();
+                for(int i=0;i<sbl.size();i++){
+                    likeList.add(sbl.get(i).getSeriesid());
+                }
+                session.setAttribute("likeList",likeList);
+                session.setAttribute("likeitem",scl.get(0).getLikestate());
+                return "series";
+            }
+            else{
+                Favorite favorite =new Favorite();
+                favorite.setSeriesid(likedSeries);
+                favorite.setUserid(liker);
+                favorite.setLikestate("dislike");
+                favoriteRepository.save(favorite);
+                ArrayList<Favorite> sbl = (ArrayList<Favorite>)favoriteRepository.findByUserid(Integer.parseInt(""+session.getAttribute("userid")));
+                ArrayList<Integer> likeList=new ArrayList<Integer>();
+                for(int i=0;i<sbl.size();i++){
+                    likeList.add(sbl.get(i).getSeriesid());
+                }
+                session.setAttribute("likeList",likeList);
+                session.setAttribute("likeitem", favorite.getLikestate());
+                return "series";
+            }
+        }
+        else {
+            List<Favorite> scl = favoriteRepository.findBySeriesidAndUserid(likedSeries,liker);
+            if(scl.size()!=0){
+                Favorite f=favoriteRepository.findBySeriesidAndUserid(likedSeries,liker).get(0);
+                f.setLikestate("like");
+                favoriteRepository.save(f);
+                ArrayList<Favorite> sbl = (ArrayList<Favorite>)favoriteRepository.findByUserid(Integer.parseInt(""+session.getAttribute("userid")));
+                ArrayList<Integer> likeList=new ArrayList<Integer>();
+                for(int i=0;i<sbl.size();i++){
+                    likeList.add(sbl.get(i).getSeriesid());
+                }
+                session.setAttribute("likeList",likeList);
+                session.setAttribute("likeitem",scl.get(0).getLikestate());
+                return "series";
+            }
+            else{
+                Favorite favorite =new Favorite();
+                favorite.setSeriesid(likedSeries);
+                favorite.setUserid(liker);
+                favorite.setLikestate("like");
+                favoriteRepository.save(favorite);
+                ArrayList<Favorite> sbl = (ArrayList<Favorite>)favoriteRepository.findByUserid(Integer.parseInt(""+session.getAttribute("userid")));
+                ArrayList<Integer> likeList=new ArrayList<Integer>();
+                for(int i=0;i<sbl.size();i++){
+                    likeList.add(sbl.get(i).getSeriesid());
+                }
+                session.setAttribute("likeList",likeList);
+                session.setAttribute("likeitem", favorite.getLikestate());
+                return "series";
+            }
+
+        }
+    }
+
+
+    @RequestMapping("/subscription")
+    public String subscription(HttpServletRequest request) throws SQLException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("userid") == null) {
+            return "redirect:/login";
+        }
+        User loginuser = userRepository.findById(Integer.parseInt(""+session.getAttribute("userid"))).get();
+        ArrayList<Subscribedauthor> sbl = (ArrayList<Subscribedauthor>)subscribedauthorRepository.findByUserid(Integer.parseInt(""+session.getAttribute("userid")));
+        ArrayList<User> subscribeAuthorList=new ArrayList<User>();
+        ArrayList<String> imageList= new ArrayList<>();
+        for(int i=0;i<sbl.size();i++){
+            User u = userRepository.findById(sbl.get(i).getAuthorid()).get();
+            subscribeAuthorList.add(u);
+            Blob page = u.getProfileimage();
+            String dataurl;
+            if(page==null){
+                dataurl="";
+            }
+            else{
+                dataurl = "data:image/png;base64,"+DatatypeConverter.printBase64Binary(page.getBytes(1,(int)page.length()));
+            }
+            imageList.add(dataurl);
+            u.setProfileimage(null);
+        }
+        System.out.println("BBBBBBBBBBB");
+        System.out.println(subscribeAuthorList);
+        session.setAttribute("subscribeAuthorList",subscribeAuthorList);
+        session.setAttribute("authorProfile",imageList);
+        ArrayList<Subscribedcomic> scl = (ArrayList<Subscribedcomic>)subscribedcomicRepository.findByUserid(Integer.parseInt(""+session.getAttribute("userid")));
+        ArrayList<Series> subscribecomicList=new ArrayList<Series>();
+        ArrayList<String> coverList = new ArrayList<>();
+        for(int i=0;i<scl.size();i++){
+            Series s = seriesRepository.findById(scl.get(i).getSeriesid()).get();
+            subscribecomicList.add(s);
+            Blob page = s.getCover();
+            String dataurl;
+            if(page==null){
+                dataurl="";
+            }
+            else{
+                dataurl = "data:image/png;base64,"+DatatypeConverter.printBase64Binary(page.getBytes(1,(int)page.length()));
+            }
+            coverList.add(dataurl);
+            s.setCover(null);
+        }
+        System.out.println("AAAAAAAAAAAAAAAAAAA");
+        System.out.println(subscribecomicList);
+        session.setAttribute("subscribeSeriesList",subscribecomicList);
+        session.setAttribute("seriesCoverList",coverList);
+
+        return "subscription";
+    }
 
 }

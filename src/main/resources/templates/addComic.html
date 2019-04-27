@@ -4,7 +4,7 @@
 <html data-wf-page="5c9e8245e27b396b26c80522" data-wf-site="5c9e8245e27b3974dfc80521" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
-  <title>drawComic</title>
+  <title>addComic</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
   <link href="css/literallycanvas.css" rel="stylesheet">
@@ -50,7 +50,7 @@
         }
 
         function gotoindex(){
-          window.location.href = "/drawComic?seriesName=" + seriesname + "&index=" + (ss.selectedIndex+1);
+          window.location.href = "/addComic?index=" + (ss.selectedIndex+1);
 
         }
         ss.selectedIndex=index-1;
@@ -66,10 +66,6 @@
 
 <script th:inline="javascript">
   var mm = document.getElementById("sumo");
-  //var dataURI =/*[[${session.profileimagepath}]]*/ 0;
-  //var byteString = atob(dataURI.split(',')[1]);
-
-
 /*
 
 
@@ -86,8 +82,8 @@
 */
 
   //var path = "https://lemoncomicapp.azurewebsites.net/images/lemon.png";
-  var path="";
-  var nn = "https://sumopaint.com/flash/api.php?target=http://lemoncomicapp.azurewebsites.net/drawComic& url=" + path +"& cloud=0&service=Save%20to%20current%20page";
+  var path=""
+  var nn = "https://sumopaint.com/flash/api.php?target=http://lemoncomicapp.azurewebsites.net/addComic& url=" + path +"& cloud=0&service=Save%20to%20current%20page";
   mm.setAttribute("src",nn);
 </script>
 
@@ -116,7 +112,7 @@
           document.form1.submit(); */
 
           var temp = document.createElement("form");
-          temp.action = "drawComic";
+          temp.action = "addComic";
           temp.method = "post";
           temp.style.display = "none";
 
@@ -148,7 +144,7 @@
 
     //window.location.href="/drawComic.html?seriesName="+seriesName+"&index="+index+"&mission=1";
     var temp = document.createElement("form");
-    temp.action = "drawComic";
+    temp.action = "addComic";
     temp.method = "post";
     temp.style.display = "none";
 

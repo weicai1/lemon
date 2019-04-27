@@ -23,7 +23,7 @@
   <a id="Message" href="message" class="button-3 w-button">Message</a>
   <a id="Favorite" href="favorite" class="button-4 w-button">Favorite</a>
   <a id="History" href="history" class="button-5 w-button">History</a>
-  <a id="LogOut" href="signIn" class="button-7 w-button">Log out</a>
+  <a id="LogOut" href="signout" class="button-7 w-button">Log out</a>
 </div>
 </nav>
 <img src="images/lemon.png" width="172" id="Lemon" alt="">
@@ -39,14 +39,41 @@
     }
   </script>
 </form>
-<div id="Category" class="div-block">
-  <a id="Fantasy" href="category" class="w-button">Fantasy</a>
-  <a id="Action" href="category" class="button-8 w-button">Action</a>
-  <a id="Horror" href="category" class="button-9 w-button">Horror</a>
-  <a id="Comedy" href="category" class="button-9 w-button">Comedy</a>
-  <a id="Tragedy" href="category" class="button-12 w-button">Tragedy</a>
-  <a id="ScienceFiction" href="category" class="button-13 w-button">Science Fiction</a>
-</div>
+<FORM id="Category" name="cats" class="div-block">
+  <INPUT TYPE="HIDDEN" name="categoryName" method="post">
+  <INPUT TYPE="BUTTON" id="Tragedy" class="w-button" VALUE="Tragedy" ONCLICK="passtag(this.value)">
+  <INPUT TYPE="button" id="Action" class="w-button" VALUE="Action" ONCLICK="passtag(this.value)">
+  <INPUT TYPE="button" id="Adventure" class="w-button" value="Adventure" ONCLICK="passtag(this.value)">
+  <INPUT TYPE="button" id="Detective" class="w-button" VALUE="Detective" ONCLICK="passtag(this.value)">
+  <INPUT TYPE="BUTTON" id="Fantasy" class="w-button" VALUE="Fantasy" ONCLICK="passtag(this.value)">
+  <INPUT TYPE="BUTTON" id="Mystery" class="w-button" VALUE="Mystery" ONCLICK="passtag(this.value)">
+  <INPUT TYPE="BUTTON" id="Romance" class="w-button" VALUE="Romance" ONCLICK="passtag(this.value)">
+  <INPUT TYPE="button" id="Sports" class="w-button" value="Fantasy" ONCLICK="passtag(this.value)">
+  <INPUT TYPE="BUTTON" id="Supernatural" class="w-button" VALUE="Supernatural" ONCLICK="passtag(this.value)">
+  <INPUT TYPE="BUTTON" id="Funny" class="w-button" VALUE="Funny" ONCLICK="passtag(this.value)">
+
+
+  <script th:inline="javascript">
+    function passtag(inp){
+      // document.cats.categoryName.value = inp;
+      // document.cats.submit();
+
+      window.location.href = "/category?categoryName=" + inp;
+    }
+  </script>
+</FORM>
+
+
+
+
+<!--<div id="Category" class="div-block">-->
+
+<!--  <a id="Action" href="category" class="button-8 w-button">Action</a>-->
+<!--  <a id="Horror" href="category" class="button-9 w-button">Horror</a>-->
+<!--  <a id="Comedy" href="category" class="button-9 w-button">Comedy</a>-->
+<!--  <a id="Tragedy" href="category" class="button-12 w-button">Tragedy</a>-->
+<!--  <a id="ScienceFiction" href="category" class="button-13 w-button">Science Fiction</a>-->
+<!--</div>-->
 <h1 id="Recommendation">Recommendation</h1>
 
 <div id="recommandation"  class="div-block-4" >

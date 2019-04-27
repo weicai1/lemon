@@ -30,7 +30,7 @@
     <a id="Message" href="message" class="button-2 w-button">Message</a>
     <a id="Favorite" href="favorite" class="button-2 w-button">Favorite</a>
     <a id="History" href="history" class="button-2 w-button">History</a>
-    <a id="LogOut" href="signIn" class="button-2 w-button">Log out</a>
+    <a id="LogOut" href="signout" class="button-2 w-button">Log out</a>
   </div>
 </nav>
 <div class="w-form">
@@ -65,13 +65,39 @@
         </select>
       <br>
       -->
+    <h2>Choose your tags.</h2>
+    <input type="checkbox" value="Tragedy" name="items[]"  />
+    <label class="float--none">Tragedy</label><br />
+    <input type="checkbox" value="Action" name="items[]"  />
+    <label class="float--none">Action</label><br />
+    <input type="checkbox" value="Adventure" name="items[]" />
+    <label class="float--none">Adventure</label><br />
+    <input type="checkbox" value="Detective" name="items[]" />
+    <label class="float--none">Detective</label><br />
+    <input type="checkbox" value="Fantasy" name="items[]" />
+    <label class="float--none">Fantasy</label><br />
+    <input type="checkbox" value="Mystery" name="items[]"  />
+    <label class="float--none">Mystery</label><br />
+    <input type="checkbox" value="Romance" name="items[]"  />
+    <label class="float--none">Romance</label><br />
+    <input type="checkbox" value="Sports" name="items[]" />
+    <label class="float--none">Sports</label><br />
+    <input type="checkbox" value="Supernatural" name="items[]" />
+    <label class="float--none">Supernatural</label><br />
+    <input type="checkbox" value="Funny" name="items[]" />
+    <label class="float--none">Funny</label><br />
+
     <a id="submit1" onclick="newComic()"class="button-14 w-button">Submit</a>
     <script>
       function newComic() {
+        var tags = [];
+        $("input[name='items[]']:checked").each(function () {
+          tags.push($(this).val());
+        });
         var seriesName = document.getElementById("series").value;
         //var tag = document.getElementById("chooseSeries").value;
         //window.location.href = "/newComic?seriesName"+seriesName+"&tag="+tag;
-        window.location.href = "/drawComic?seriesName="+seriesName+"&index=1";
+        window.location.href = "/drawComic?seriesName="+seriesName+"&index=1"+"&tags="+tags;
 
       }
     </script>

@@ -1,10 +1,10 @@
 package com.example.Lemon;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
+        import org.springframework.data.jpa.repository.Query;
+        import org.springframework.data.repository.CrudRepository;
+        import org.springframework.data.repository.query.Param;
 
-import java.util.List;
+        import java.util.List;
 
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
@@ -12,4 +12,6 @@ import java.util.List;
 
 public interface SeriesRepository extends CrudRepository<Series, Integer> {
         List<Series> findByName(String name);
+        Series getById(Integer id);
+        List<Series> findByAuthorid(Integer authorid);
 }

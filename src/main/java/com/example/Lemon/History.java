@@ -5,17 +5,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.sql.Timestamp;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class Category {
+public class History {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     private Integer seriesid;
 
-    private String tag;
+    private Integer userid;
+
+    private Integer comicid;
+
+    private Integer pageindex;
 
     public Integer getId() {
         return id;
@@ -33,12 +36,28 @@ public class Category {
         this.seriesid = seriesid;
     }
 
-    public String getTag() {
-        return tag;
+    public Integer getUserid() {
+        return userid;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
+
+    public Integer getComicid() {
+        return comicid;
+    }
+
+    public void setComicid(Integer comicid) {
+        this.comicid = comicid;
+    }
+
+    public Integer getPageindex() {
+        return pageindex;
+    }
+
+    public void setPageindex(Integer pageindex) {
+        this.pageindex = pageindex;
     }
 
 }

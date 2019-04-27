@@ -1,5 +1,7 @@
 package com.example.Lemon;
 
+import net.bytebuddy.TypeCache;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -10,4 +12,5 @@ import java.util.List;
 
 public interface ComicRepository extends CrudRepository<Comic, Integer> {
     List<Comic> findBySeriesid(Integer seriesid);
+    List<Comic> findBySeriesid(Integer seriesid, Sort sort);
 }

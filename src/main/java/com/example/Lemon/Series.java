@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Blob;
-
+import java.util.Comparator;
 @Entity // This tells Hibernate to make a table out of this class
 public class Series {
     @Id
@@ -90,4 +90,42 @@ public class Series {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public static Comparator<Series> SeriesSubscriptionComparator
+            = new Comparator<Series>() {
+
+        public int compare(Series serie1, Series serie2) {
+
+            Integer sub1 = serie1.getSubnumber();
+            Integer sub2 = serie2.getSubnumber();
+            return sub2.compareTo(sub1);
+        }
+    };
+
+    public static Comparator<Series> SeriesIdComparator
+            = new Comparator<Series>() {
+
+        public int compare(Series serie1, Series serie2) {
+
+            Integer id1 = serie1.getId();
+            Integer id2 = serie2.getId();
+            return id2.compareTo(id1);
+        }
+    };
+
+    public static Comparator<Series> SeriesRateComparator
+            = new Comparator<Series>() {
+
+        public int compare(Series serie1, Series serie2) {
+
+            Double rate1 = serie1.getRate();
+            Double rate2 = serie2.getRate();
+            //ascending order
+//            return fruitName1.compareTo(fruitName2);
+
+            //descending order
+            return rate2.compareTo(rate1);
+        }
+
+    };
 }

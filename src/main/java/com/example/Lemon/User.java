@@ -23,6 +23,7 @@ public class User {
 
     private Boolean issuperuser;
 
+    private String signature;
 
 
     public Integer getId() {
@@ -69,4 +70,10 @@ public class User {
 
     public void setEmail(String email){ this.email=email; }
 
+    public String getSignature(){
+        return signature;
+    }
+    public void setSignature(String signature){
+        this.signature=signature;
+    }
 }

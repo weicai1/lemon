@@ -5,17 +5,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.sql.Timestamp;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class Category {
+public class Favorite {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     private Integer seriesid;
 
-    private String tag;
+    private Integer userid;
+
+    private String likestate;
 
     public Integer getId() {
         return id;
@@ -33,12 +34,20 @@ public class Category {
         this.seriesid = seriesid;
     }
 
-    public String getTag() {
-        return tag;
+    public Integer getUserid() {
+        return userid;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
+
+    public String getLikestate() {
+        return likestate;
+    }
+
+    public void setLikestate(String likestate) {
+        this.likestate = likestate;
     }
 
 }
