@@ -79,7 +79,7 @@ public class Series {
         return rate;
     }
 
-    public void setRate(Double subnumber) {
+    public void setRate(Double rate) {
         this.rate = rate;
     }
 
