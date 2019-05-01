@@ -353,3 +353,63 @@ td,
 th {
   padding: 0;
 }
+
+.topbar {
+  padding-left: 3px;
+  text-align: center;
+  background-color: #8BD8BD;
+  width: 100%;
+}
+#Home,#PersonalCenter,#Message,#Favorite,#History,#LogOut{
+  color: #243665;
+  padding-left: 3px;
+  padding-right: 3px ;
+  text-align: center;
+  background-color: #8BD8BD;
+  font-family: 'Tamil MN';
+  font-weight: bold;
+  font-size: 14px;
+  text-align-all: center;
+}
+#Home:hover, #Home:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+#PersonalCenter:hover,#PersonalCenter:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+#Message:hover,#Message:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+#Favorite:hover,#Favorite:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+#History:hover,#History:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+#LogOut:hover,#LogOut:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+.float--none,.input-group-text{
+  font-family: 'Tamil MN';
+  font-weight: bold;
+  font-size: 14px;
+  text-align-all: center;
+}
+/*
+#submit1{
+  font-family: 'Tamil MN';
+  font-weight: bold;
+  font-size: 14px;
+  background-color: #8BD8BD;
+  color: #243665;
+}
+#submit1:hover,#submit1:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}*/
