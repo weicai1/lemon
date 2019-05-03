@@ -20,10 +20,11 @@
   <div id="chapter" class="w-layout-grid grid-4">
     <!--
     <img th:src="${session.cover}" id="cover" alt="" class="image-2 w-node-703136f8adfa-76809e6d">
-    <div id="name" class="text-block-2 w-node-703136f8adfb-76809e6d">Chapter 1</div><a id="delete" href="#" class="button-15 w-node-9f4d0421c46a-76809e6d w-button">Detele</a>
+    <div id="name" class="text-block-2 w-node-703136f8adfb-76809e6d">Chapter 1</div>
+    <a id="delete" href="#" class="button-15 w-node-9f4d0421c46a-76809e6d w-button">
+    Detele</a>
     -->
   </div>
-  <div id="add"> </div>
   <script th:inline="javascript">
     var pane= document.getElementById("chapter");
     var cn =/*[[${session.currentseries.getChapternumber()}]]*/ 0;
@@ -32,15 +33,35 @@
     for(var i=0;i<cn;i++){
       var img= document.createElement("img");
       img.src=ccover[i];
-      img.id="cover";
+      img.id+=" cover";
       img.alt="";
-      img.class="image-2 w-node-703136f8adfa-76809e6d";
+      img.className+=" image-2 w-node-703136f8adfa-76809e6d";
       pane.appendChild(img);
+
       var namediv =document.createElement("div");
-      namediv.id="name";
-      namediv.class="text-block-2 w-node-703136f8adfb-76809e6d";
+      namediv.setAttribute("class","text-block-2 w-node-703136f8adfb-76809e6d");
       namediv.innerHTML="Chapter "+(i+1);
       pane.appendChild(namediv);
+
+
+      var d = document.createElement("div");
+
+      var setCover = document.createElement("a");
+      setCover.setAttribute('class',"button-15 w-node-9f4d0421c46a-76809e6d w-button");
+      setCover.innerHTML="Set it as the cover";
+      setCover.href = "setCover?chapterindex="+i;
+      d.appendChild(setCover);
+      var br=document.createElement("BR");
+      d.appendChild(br);
+      var br2=document.createElement("BR");
+      d.appendChild(br2);
+      var s = document.createElement("a");
+      s.setAttribute('class',"button-15 w-node-9f4d0421c46a-76809e6d w-button");
+      s.innerHTML="Delete this chapter";
+
+      d.appendChild(s);
+
+      pane.appendChild(d);
 
       /*
       var editbutton = document.createElement("a");
@@ -51,12 +72,7 @@
       pane.appendChild(editbutton);
   */
 
-      var delebutton = document.createElement("a");
-      delebutton.id="delete";
-      delebutton.href="#";
-      delebutton.innerHTML="Delete";
-      delebutton.class="button-15 w-node-9f4d0421c46a-76809e6d w-button";
-      pane.appendChild(delebutton);
+
 
 
     }
@@ -65,9 +81,9 @@
     var addbutton = document.createElement("a");
     addbutton.id="add";
     addbutton.href="addComic?create=1&chapterindex="+(cn+1);
-    addbutton.innerHTML="add";
-    addbutton.class="button-15 w-node-9f4d0421c46a-76809e6d w-button";
-    add.appendChild(addbutton);
+    addbutton.innerHTML="Add one chapter";
+    addbutton.setAttribute('class',"button-16 w-button");
+    pane.appendChild(addbutton);
   </script>
 
 

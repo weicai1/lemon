@@ -4,6 +4,7 @@
   background-color: #8BD8BD;
 }
 #Home,#PersonalCenter,#Message,#Favorite,#History,#LogOut{
+
   color: #243665;
   padding-left: 3px;
   padding-right: 3px ;
@@ -42,17 +43,17 @@
   margin-left: 189px;
 
 }
-.w-button {
-
+input[type=button] {
+  border-radius: 40%;
   font-family: 'Tamil MN';
   font-weight: bold;
   font-size: 14px;
-  background-color: #8BD8BD;
+  background-color: white;
   color: #243665;
 }
-.w-button:hover,.w-button:active{
-  background-color: #243665;
-  color: #8BD8BD;
+input[type=button]:hover,input[type=button]:active{
+  background-color: #8BD8BD;
+  color: #243665;
 }
 .button-2 {
   margin-left: 40px;
@@ -92,7 +93,7 @@
 
 .search-button {
   border-radius: 8px;
-  margin-top: -100px;
+  margin-top: -130px;
   margin-bottom: 1px;
   margin-left: 526px;
   background-color: #8BD8BD;
@@ -100,7 +101,7 @@
   font-family: 'Tamil MN';
   font-weight: bold;
   font-size: 14px;
-  //opacity: 0.7;
+//opacity: 0.7;
 }
 .search-button:hover{
   background-color: #243665;
@@ -111,14 +112,25 @@
 .search-input {
   margin-bottom: -28px;
   margin-left: 6px;
+  border-radius: 8px;
 }
 #recommandation{
   font-family: 'Tamil MN';
   font-weight: bold;
 }
 
+.badge {
+  top: -20px;
+  right: -10px;
+
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: red;
+  color: white;
+}
+
 .body {
-  //background-color: #e8eaed;
+//background-color: #e8eaed;
 }
 
 .div-block {

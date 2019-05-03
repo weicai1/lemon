@@ -25,6 +25,11 @@ public class User {
 
     private String signature;
 
+    private Long lastViewTime;
+
+    public Long getLastViewTime(){return this.lastViewTime;}
+
+    public void setLastViewTime(Long lastViewTime){this.lastViewTime = lastViewTime;}
 
     public Integer getId() {
         return id;

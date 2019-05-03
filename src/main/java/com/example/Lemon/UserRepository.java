@@ -10,4 +10,5 @@ import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
     Optional<User> findByName(String name);
+    User getById(Integer id);
 }

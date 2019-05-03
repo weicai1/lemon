@@ -13,4 +13,5 @@ import java.util.List;
 public interface ComicRepository extends CrudRepository<Comic, Integer> {
     List<Comic> findBySeriesid(Integer seriesid);
     List<Comic> findBySeriesid(Integer seriesid, Sort sort);
+    Comic getById(Integer id);
 }

@@ -114,7 +114,6 @@
   margin-right: 15%;
   margin-left: 5%;
   width: 700px;
-  height: 300px;
   border-style: solid;
   border-width: 4px;
   border-color: #68f3d9;
@@ -144,9 +143,7 @@
   margin-right: 3%;
   margin-left: 3%;
   -ms-grid-columns: 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
   -ms-grid-rows: auto auto auto auto;
-  grid-template-rows: auto auto auto auto;
   border-style: solid;
   border-width: 1px;
   border-color: hsla(214.17218543046354, 100.00%, 70.39%, 1.00);

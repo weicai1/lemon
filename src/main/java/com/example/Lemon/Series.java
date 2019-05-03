@@ -27,6 +27,8 @@ public class Series {
 
     private String description;
 
+    private Long updatetime;
+
     public Integer getId() {
         return id;
     }
@@ -34,6 +36,10 @@ public class Series {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Long getUpdatetime(){return this.updatetime;}
+
+    public void setUpdatetime(Long updateTime){this.updatetime = updateTime;}
 
     public Integer getChapternumber() {
         return chapternumber;

@@ -16,7 +16,7 @@
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
 </head>
 <body class="body">
-  <div id="Topbar" class="topbar w-container"><a id="Home" href="home" class="button-14 w-button">Home</a><a id="PersonalCenter" href="personal" class="button w-button">Personal Center</a><a id="Message" href="message" class="button w-button">Message</a><a id="Favorite" href="favorite" class="button w-button">Favorite</a><a id="History" href="signout" class="button w-button">History</a><a id="LogOut" href="" class="button w-button">Log out</a></div>
+  <div id="Topbar" class="topbar w-container"><a id="Home" href="home" class="button-14 w-button">Home</a><a id="PersonalCenter" href="personal" class="button w-button">Personal Center</a><a id="Message" href="message" class="button w-button">Message</a><a id="Favorite" href="favorite" class="button w-button">Favorite</a><a id="History" href="history" class="button w-button">History</a><a id="LogOut" href="signout" class="button w-button">Log out</a></div>
   <div class="text-block-3">My Information</div>
   <div id="information" class="w-layout-grid grid-3"><img th:src="${session.profileimagepath}" id="cover" alt="" class="image-2 w-node-2d35687954b9-ea807e57">
     <div id="title" class="text-block-2 w-node-2d35687954ba-ea807e57"> <span th:text="${session.currentuser.getName()}"></span></div>
@@ -28,19 +28,21 @@
       <div class="div-block-3">
         <a href="editInformation.html" class="button-16 w-button">Edit My Information</a>
         <a href="createComic" class="button-16 w-button">Create New Comic</a>
-        <a href="#" class="button-16 w-button">Followers</a>
+        <a href="follower" class="button-16 w-button">Followers</a>
         <a href="subscription" class="button-16 w-button">Subscription</a>
       </div>
     </div>
     <div class="w-col w-col-10">
       <div id="boarder" class="div-block-2">
         <div id="header" class="text-block-4">Works</div><!--
-        <div id="comic" class="w-layout-grid grid-4"><img src="images/Lemon-Man-1.png" id="cover" alt="" class="image-3 w-node-0dac08b5cfc3-ea807e57">
+        <div id="comic" class="w-layout-grid grid-4">
+        <img src="images/Lemon-Man-1.png" id="cover" alt="" class="image-3 w-node-0dac08b5cfc3-ea807e57">
         <div id="title" class="text-block-2 w-node-0dac08b5cfc4-ea807e57">Title: Lemon Man</div>
         <div id="author" class="text-block-2 w-node-0dac08b5cfc6-ea807e57">Author: Lemon</div>
         <div id="subscribe" class="text-block-2 w-node-0dac08b5cfc8-ea807e57">Subscribe: 4</div>
         <div id="comicRate" class="text-block-2 w-node-0dac08b5cfca-ea807e57">Rate: 5</div>
-        <div id="category" class="text-block-2 w-node-0dac08b5cfcc-ea807e57">Category: Funny</div><a id="w-node-002efee08c13-ea807e57" href="#" class="button-17 w-button">Delete this series</a><a id="w-node-991fa503fc72-ea807e57" href="#" class="button-17 w-button">View Chapters</a></div>
+        <div id="category" class="text-block-2 w-node-0dac08b5cfcc-ea807e57">Category: Funny</div>
+        <a id="w-node-002efee08c13-ea807e57" href="#" class="button-17 w-button">Delete this series</a><a id="w-node-991fa503fc72-ea807e57" href="#" class="button-17 w-button">View Chapters</a></div>
       -->
       </div>
     </div>
@@ -48,70 +50,37 @@
       var pane= document.getElementById("boarder");
       var works = /*[[${session.works}]]*/ 0;
       var tt=/*[[${session.works}]]*/0;
+      var authorname=/*[[${session.currentuser.getName()}]]*/ 0;
       for(var i=0;i<works.length;i++){
-        var temp1 = document.createElement("div");
-        temp1.id="comic";
-        temp1.class="w-layout-grid grid-4";
+        var boarder = document.createElement("div");
+        boarder.setAttribute("class", "w-layout-grid grid-4");
+
         var a=document.createElement("a");
         a.href="viewChapters.html?id="+tt[i]["id"];
 
         var img = document.createElement("img");
         var xx=/*[[${session.personalcovers}]]*/ "";
         img.src=xx[i];
-        img.id="cover";
         img.alt="";
-        img.class="image-3 w-node-0dac08b5cfc3-ea807e57";
+        img.className+=" image-3 w-node-0dac08b5cfc3-ea807e57";
         img.width="300";
         a.appendChild(img);
-        temp1.appendChild(a);
 
         var temp2 = document.createElement("div");
-        temp2.id="title";
-        temp2.class="text-block-2 w-node-0dac08b5cfc4-ea807e57";
-        var titlespan = document.createElement("div");
-        titlespan.innerHTML="Author: "+tt[i]["name"];
-        titlespan.class="text-block-2 w-node-0dac08b5cfc4-ea807e57";
-        //temp2.appendChild(titlespan);
-
-        var temp3 =document.createElement("div");
-        temp3.id="author";
-        temp3.class="text-block-2 w-node-0dac08b5cfc4-ea807e57";
-        var authorspan = document.createElement("div");
-        authorspan.innerHTML="Author: "+/*[[${session.currentuser.getName()}]]*/ 0;
-        authorspan.class="text-block-2 w-node-0dac08b5cfc6-ea807e57";
-
-        temp3.appendChild(authorspan);
-        var temp4 =document.createElement("div");
-        temp4.id="subscribe";
-        temp4.class="text-block-2 w-node-0dac08b5cfc8-ea807e57";
-        var sspan=document.createElement("div");
-        sspan.innerHTML="Suscribe: 4";
-        sspan.class="text-block-2 w-node-0dac08b5cfc8-ea807e57";
-        //temp4.appendChild(sspan);
-
-        var temp5 = document.createElement("div");
-        temp5.id="comicRate";
-        temp5.class="text-block-2 w-node-0dac08b5cfca-ea807e57";
-        var cspan=document.createElement("div");
-        cspan.innerHTML="Rate :"+tt[i]["rate"];
-        cspan.class="text-block-2 w-node-0dac08b5cfca-ea807e57";
-        //temp5.appendChild(cspan);
-
+        temp2.setAttribute("class", "text-block-2 w-node-0dac08b5cfc4-ea807e57");
+        temp2.innerHTML="Title: "+tt[i]["name"]+"<br><br>"+
+                "Author: "+authorname+"<br><br>"+
+                "Suscribe: 0"+"<br><br>"+
+                "Rate :"+tt[i]["rate"];
+        /*
         var temp6 = document.createElement("div");
-        temp6.id="category";
-        temp6.class="text-block-2 w-node-0dac08b5cfcc-ea807e57";
-        var t6span=document.createElement("div");
-        t6span.innerHTML="Category: Funny";
-        t6span.class="text-block-2 w-node-0dac08b5cfcc-ea807e57";
-        //temp6.appendChild(t6span);
-
-        pane.appendChild(temp1);
-        pane.appendChild(titlespan);
-        pane.appendChild(authorspan);
-        pane.appendChild(sspan);
-        pane.appendChild(cspan);
-        pane.appendChild(t6span);
-
+        temp6.setAttribute("class", "text-block-2 w-node-0dac08b5cfca-ea807e57");
+        temp6.innerHTML="Category: Funny";
+        */
+        boarder.appendChild(a);
+        boarder.appendChild(temp2);
+        //boarder.appendChild(temp6);
+        pane.appendChild(boarder);
       }
     </script>
   </div>

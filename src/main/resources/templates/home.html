@@ -16,15 +16,15 @@
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
 </head>
 <body class="body">
-<nav class="navbar navbar-purple bg-purple" style="background:#9a81c4">
-<div id="Topbar" class="topbar w-container">
-  <a id="Home" href="home" class="button-14 w-button">Home</a>
-  <a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a>
-  <a id="Message" href="message" class="button-3 w-button">Message</a>
-  <a id="Favorite" href="favorite" class="button-4 w-button">Favorite</a>
-  <a id="History" href="history" class="button-5 w-button">History</a>
-  <a id="LogOut" href="signout" class="button-7 w-button">Log out</a>
-</div>
+<nav class="navbar navbar-purple bg-purple" style="background:#8BD8BD">
+  <div id="Topbar" class="topbar w-container">
+    <a id="Home" href="home" class="button-14 w-button">Home</a>
+    <a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a>
+    <a id="Message" href="message" class="button-3 w-button"><span>Message</span><span class="badge"><span th:text="${session.messagenum}"></span></span></a>
+    <a id="Favorite" href="favorite" class="button-4 w-button">Favorite</a>
+    <a id="History" href="history" class="button-5 w-button">History</a>
+    <a id="LogOut" href="signout" class="button-7 w-button">Log out</a>
+  </div>
 </nav>
 <img src="images/lemon.png" width="172" id="Lemon" alt="">
 <form  id="SearchBar" class="search w-form" action="search">
@@ -79,31 +79,31 @@
 <div id="recommandation"  class="div-block-4" >
 
   <script th:inline="javascript">
-      var covers=/*[[${session.covers}]]*/0;
-      var div =document.getElementById("recommandation");
-      var i =0;
-      var series = /*[[${session.series}]]*/0;
-      for(var i=0;i<covers.length;i++){
-        var cover = covers[i];
-          var img = document.createElement("img");
-          var id =series[i]["id"];
-          var link = "/series?id="+id;
-          img.src=cover;
-          img.id=id;
-        console.log(2);
-          img.style="float: left";
-          img.width="150";
-          img.height="150";
-          img.class="image-3";
-          img.alt="";
-          var a= document.createElement("a");
-          a.href = link;
-        console.log(3);
-          a.appendChild(img);
-          div.appendChild(a);
+    var covers=/*[[${session.covers}]]*/0;
+    var div =document.getElementById("recommandation");
+    var i =0;
+    var series = /*[[${session.series}]]*/0;
+    for(var i=0;i<covers.length;i++){
+      var cover = covers[i];
+      var img = document.createElement("img");
+      var id =series[i]["id"];
+      var link = "/series?id="+id;
+      img.src=cover;
+      img.id=id;
+      console.log(2);
+      img.style="float: left";
+      img.width="150";
+      img.height="150";
+      img.class="image-3";
+      img.alt="";
+      var a= document.createElement("a");
+      a.href = link;
+      console.log(3);
+      a.appendChild(img);
+      div.appendChild(a);
 
-      }
-      console.log(4);
+    }
+    console.log(4);
   </script>
 </div>
 <br><br><br><br><br><br><br><br>
