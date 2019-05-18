@@ -1,0 +1,180 @@
+.topbar {
+  padding-left: 0px;
+  text-align: center;
+}
+.body {
+  background-color: #e8eaed;
+}
+.button-14 {
+  font-family: 'Times New Roman', TimesNewRoman, Times, Baskerville, Georgia, serif;
+}
+
+.button-2 {
+  margin-left: 40px;
+}
+
+.form {
+  text-align: center;
+}
+
+.select-field {
+  position: static;
+  left: auto;
+  right: auto;
+  width: 150px;
+  margin-top: 5px;
+  margin-left: 550px;
+}
+
+
+.div-block {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 20%;
+  width: 805px;
+  margin-top: -10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #4000ff;
+  text-align: center;
+}
+
+.column {
+  height: 50px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.column-2 {
+  height: 50px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.column-3 {
+  height: 50px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.column-4 {
+  height: 50px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.column-5 {
+  height: 50px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.columns {
+  height: 50px;
+  margin-right: 300px;
+}
+
+.column-6 {
+  height: 50px;
+}
+
+.column-7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 50px;
+}
+
+.column-8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 50px;
+}
+
+.column-9 {
+  height: 50px;
+}
+
+.text-block {
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  color: #7b00ff;
+  font-size: 20px;
+}
+
+.select-field-2 {
+  width: 120px;
+  height: 35px;
+  font-size: 14px;
+}
+
+.form-2 {
+  margin-right: 94px;
+  margin-left: 1px;
+}
+
+.form-block {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.text-block-2 {
+  margin-left: -75px;
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  color: #7b00ff;
+  font-size: 20px;
+}
+
+.form-block-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.select-field-3 {
+  width: 120px;
+  height: 35px;
+  margin-right: 21px;
+  margin-left: -64px;
+}
+
+.button-15 {
+  height: 40px;
+  margin-left: 14px;
+}
+
+.column-10 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.text-block-3 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 auto;
+  -ms-flex: 0 auto;
+  flex: 0 auto;
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  color: #7b00ff;
+  font-size: 20px;
+}
+
+.select-field-4 {
+  width: 200px;
+  height: 40px;
+  margin-left: 16px;
+}
+
+.button-16 {
+  text-align: center;
+}
+
+.column-11 {
+  text-align: right;
+}

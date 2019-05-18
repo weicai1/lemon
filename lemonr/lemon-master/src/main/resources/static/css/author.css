@@ -1,0 +1,244 @@
+.w-layout-grid {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-columns: 1fr;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: auto auto;
+  grid-template-rows: auto auto;
+  grid-row-gap: 16px;
+  grid-column-gap: 16px;
+}
+
+.button {
+  margin-left: 40px;
+}
+
+.container {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  text-align: center;
+}
+
+.image {
+  width: 120px;
+  height: 120px;
+  margin-top: 47px;
+  margin-left: 0px;
+}
+
+.text-block {
+  width: 200px;
+  margin-top: -118px;
+  margin-bottom: 0px;
+  margin-left: 202px;
+  padding-bottom: 0px;
+}
+
+.text-block-2 {
+  width: 200px;
+  margin-top: 14px;
+  margin-right: 0px;
+  margin-left: 203px;
+}
+
+.button-2 {
+  margin: 14px 0px -1px 201px;
+  padding-top: 0px;
+}
+
+.image-2 {
+  width: 150px;
+  height: 150px;
+  margin-top: 38px;
+  margin-left: 30px;
+}
+
+.container-2 {
+  text-align: center;
+}
+
+.text-block-3 {
+  width: 150px;
+  height: auto;
+  margin-left: 33px;
+}
+
+.grid {
+  margin-top: 40px;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  -ms-grid-rows: auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto;
+  background-color: #fff5f5;
+  text-align: center;
+}
+
+.image-3 {
+  width: 150px;
+  height: 150px;
+  margin-left: 0px;
+  text-align: center;
+}
+
+.image-4 {
+  width: 150px;
+  height: 150px;
+}
+
+.topbar {
+  padding-left: 0px;
+  text-align: center;
+}
+
+.button-14 {
+  font-family: 'Times New Roman', TimesNewRoman, Times, Baskerville, Georgia, serif;
+}
+
+.grid-3 {
+  margin-top: 60px;
+  margin-right: 15%;
+  margin-left: 15%;
+  -ms-grid-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-rows: auto auto auto;
+  grid-template-rows: auto auto auto;
+}
+
+.image-5 {
+  width: 240px;
+  height: 240px;
+}
+
+.text-block-4 {
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  font-size: 18px;
+}
+
+.body {
+  background-color: hsla(216.00000000000014, 12.20%, 91.96%, 1.00);
+}
+
+.container-3 {
+  background-color: #ecf2fd;
+}
+
+#w-node-9a269dfdec1b-ebae86f5 {
+  -ms-grid-column: 1;
+  grid-column-start: 1;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 2;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#w-node-9a269dfdec1c-ebae86f5 {
+  -ms-grid-column: 2;
+  grid-column-start: 2;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 3;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#w-node-9a269dfdec1d-ebae86f5 {
+  -ms-grid-column: 1;
+  grid-column-start: 1;
+  -ms-grid-row: 2;
+  grid-row-start: 2;
+  -ms-grid-column-span: 1;
+  grid-column-end: 2;
+  -ms-grid-row-span: 1;
+  grid-row-end: 3;
+}
+
+#w-node-9a269dfdec1f-ebae86f5 {
+  -ms-grid-column: 1;
+  grid-column-start: 1;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 2;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#w-node-9a269dfdec20-ebae86f5 {
+  -ms-grid-column: 2;
+  grid-column-start: 2;
+  -ms-grid-row: 2;
+  grid-row-start: 2;
+  -ms-grid-column-span: 1;
+  grid-column-end: 3;
+  -ms-grid-row-span: 1;
+  grid-row-end: 3;
+}
+
+#w-node-9a269dfdec22-ebae86f5 {
+  -ms-grid-column: 1;
+  grid-column-start: 1;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 2;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#w-node-9a269dfdec23-ebae86f5 {
+  -ms-grid-column: 1;
+  grid-column-start: 1;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 2;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#w-node-9a269dfdec24-ebae86f5 {
+  -ms-grid-column: 1;
+  grid-column-start: 1;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 2;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#w-node-9a269dfdec25-ebae86f5 {
+  -ms-grid-column: 1;
+  grid-column-start: 1;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 2;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+.columns {
+  height: 212px;
+  margin-right: 15%;
+  margin-left: 15%;
+  margin-bottom: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #577eff;
+}
+
+.column {
+  height: 211px;
+  text-align: center;
+}
+
+.div-block-2 {
+  margin-top: 10px;
+  margin-right: 10%;
+  margin-left: 10%;
+}

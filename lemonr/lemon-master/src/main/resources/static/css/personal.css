@@ -1,0 +1,333 @@
+.w-layout-grid {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-columns: 1fr;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: auto auto;
+  grid-template-rows: auto auto;
+  grid-row-gap: 16px;
+  grid-column-gap: 16px;
+}
+.body {
+  background-color: #e8eaed;
+}
+.topbar {
+  padding-left: 3px;
+  text-align: center;
+  background-color: #8BD8BD;
+  width: 100%;
+}
+
+.button-14 {
+  font-family: 'Times New Roman', TimesNewRoman, Times, Baskerville, Georgia, serif;
+}
+
+.button {
+  margin-left: 40px;
+}
+#Home,#PersonalCenter,#Message,#Favorite,#History,#LogOut{
+  color: #243665;
+  padding-left: 3px;
+  padding-right: 3px ;
+  text-align: center;
+  background-color: #8BD8BD;
+  font-family: 'Tamil MN';
+  font-weight: bold;
+  font-size: 14px;
+  text-align-all: center;
+}
+#Home:hover, #Home:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+#PersonalCenter:hover,#PersonalCenter:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+#Message:hover,#Message:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+#Favorite:hover,#Favorite:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+#History:hover,#History:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+#LogOut:hover,#LogOut:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+.text-block-3 {
+  margin-top: 40px;
+  font-family: 'Tamil MN';
+  font-weight: bold;
+  color: #243665;
+  font-size: 30px;
+  text-align: center;
+}
+#title,#subscribeNumber,#bio{
+  margin-top: 40px;
+  font-family: 'Tamil MN';
+  font-weight: bold;
+  color: #243665;
+  //text-align: center;
+  outline: none;
+}
+.grid-3 {
+  margin-top: 10px;
+  margin-right: 15%;
+  margin-left: 15%;
+  -ms-grid-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-rows: auto auto auto;
+  grid-template-rows: auto auto auto;
+}
+
+.image-2 {
+  width: 120px;
+  height: 120px;
+  text-align: left;
+}
+
+#comic,#title,#author,#subscribe,#comicRate,#category {
+  font-family: 'Tamil MN';
+  font-weight: bold;
+  color: #243665;
+  text-align: center;
+  font-size: 18px;
+}
+
+.button-15 {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
+  align-self: center;
+  background-color: #0eb93e;
+}
+
+.div-block-2 {
+  margin-top: 10px;
+  margin-right: 15%;
+  margin-left: 5%;
+  width: 700px;
+  border-style: solid;
+  border-width: 4px;
+  border-color: #68f3d9;
+  background-color: #ecf2fd;
+}
+
+.text-block-4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 50px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 30px;
+  text-align: center;
+}
+
+.grid-4 {
+  margin-top: 10px;
+  margin-right: 3%;
+  margin-left: 3%;
+  -ms-grid-columns: 1fr 1fr 1fr;
+  -ms-grid-rows: auto auto auto auto;
+  border-style: solid;
+  border-width: 1px;
+  border-color: hsla(214.17218543046354, 100.00%, 70.39%, 1.00);
+}
+
+.image-3 {
+  width: 240px;
+  height: 240px;
+}
+/*
+.div-block-3 {
+  margin-right: 82%;
+  margin-bottom: 0px;
+}
+*/
+.button-16{
+  color: #243665;
+  //text-align: center;
+  background-color: #8BD8BD;
+  font-family: 'Tamil MN';
+  font-weight: bold;
+  font-size: 14px;
+  text-align-all: center;
+  width: 200px;
+}
+.button-16:hover{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+/*
+.button-16 {
+  width: 200px;
+  margin-top: 10px;
+  background-color: #02c;
+}
+*/
+.button-17 {
+  -webkit-align-self: start;
+  -ms-flex-item-align: start;
+  -ms-grid-row-align: start;
+  align-self: start;
+  background-color: #00c781;
+}
+
+#cover.w-node-2d35687954b9-ea807e57 {
+  -ms-grid-column: 1;
+  grid-column-start: 1;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 2;
+  -ms-grid-row-span: 3;
+  grid-row-end: 4;
+  -ms-grid-row-align: center;
+  align-self: center;
+  -ms-grid-column-align: center;
+  justify-self: center;
+}
+
+#title.w-node-2d35687954ba-ea807e57 {
+  -ms-grid-column: 2;
+  grid-column-start: 2;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 3;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#subscribeNumber.w-node-2d35687954bc-ea807e57 {
+  -ms-grid-column: 3;
+  grid-column-start: 3;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 4;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#bio.w-node-2d35687954c0-ea807e57 {
+  -ms-grid-column: 2;
+  grid-column-start: 2;
+  -ms-grid-row: 2;
+  grid-row-start: 2;
+  -ms-grid-column-span: 2;
+  grid-column-end: 4;
+  -ms-grid-row-span: 1;
+  grid-row-end: 3;
+}
+
+#cover.w-node-0dac08b5cfc3-ea807e57 {
+  -ms-grid-column: 1;
+  grid-column-start: 1;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 2;
+  -ms-grid-row-span: 4;
+  grid-row-end: 5;
+}
+
+#title.w-node-0dac08b5cfc4-ea807e57 {
+  -ms-grid-column: 2;
+  grid-column-start: 2;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 3;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#author.w-node-0dac08b5cfc6-ea807e57 {
+  -ms-grid-column: 3;
+  grid-column-start: 3;
+  -ms-grid-row: 1;
+  grid-row-start: 1;
+  -ms-grid-column-span: 1;
+  grid-column-end: 4;
+  -ms-grid-row-span: 1;
+  grid-row-end: 2;
+}
+
+#subscribe.w-node-0dac08b5cfc8-ea807e57 {
+  -ms-grid-column: 2;
+  grid-column-start: 2;
+  -ms-grid-row: 2;
+  grid-row-start: 2;
+  -ms-grid-column-span: 1;
+  grid-column-end: 3;
+  -ms-grid-row-span: 1;
+  grid-row-end: 3;
+}
+
+#comicRate.w-node-0dac08b5cfca-ea807e57 {
+  -ms-grid-column: 3;
+  grid-column-start: 3;
+  -ms-grid-row: 2;
+  grid-row-start: 2;
+  -ms-grid-column-span: 1;
+  grid-column-end: 4;
+  -ms-grid-row-span: 1;
+  grid-row-end: 3;
+}
+
+#category.w-node-0dac08b5cfcc-ea807e57 {
+  -ms-grid-column: 2;
+  grid-column-start: 2;
+  -ms-grid-row: 3;
+  grid-row-start: 3;
+  -ms-grid-column-span: 2;
+  grid-column-end: 4;
+  -ms-grid-row-span: 1;
+  grid-row-end: 4;
+}
+
+#w-node-002efee08c13-ea807e57 {
+  -ms-grid-column: 2;
+  grid-column-start: 2;
+  -ms-grid-row: 4;
+  grid-row-start: 4;
+  -ms-grid-column-span: 1;
+  grid-column-end: 3;
+  -ms-grid-row-span: 1;
+  grid-row-end: 5;
+  -ms-grid-column-align: start;
+  justify-self: start;
+  -ms-grid-row-align: start;
+  align-self: start;
+}
+
+#w-node-991fa503fc72-ea807e57 {
+  -ms-grid-column: 3;
+  grid-column-start: 3;
+  -ms-grid-row: 4;
+  grid-row-start: 4;
+  -ms-grid-column-span: 1;
+  grid-column-end: 4;
+  -ms-grid-row-span: 1;
+  grid-row-end: 5;
+  -ms-grid-column-align: start;
+  justify-self: start;
+  -ms-grid-row-align: start;
+  align-self: start;
+}

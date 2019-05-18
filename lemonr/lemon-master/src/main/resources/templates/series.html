@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<!--  This site was created in Webflow. http://www.webflow.com  -->
+<!--  Last Published: Sun Mar 31 2019 22:23:33 GMT+0000 (UTC)  -->
+<html data-wf-page="5ca1345cb9de9c45fdb4ecab" data-wf-site="5ca1345cb9de9c489db4ecaa" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <meta charset="utf-8">
+  <title>series</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Webflow" name="generator">
+  <link href="css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/series.css" rel="stylesheet" type="text/css">
+  <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
+  <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
+  <style>
+    .collapsible {
+      background-color: #14305e;
+      color: white;
+      cursor: pointer;
+      padding: 5px;
+      width: 100%;
+      border: none;
+      text-align: center;
+      outline: none;
+      font-size: 18px;
+    }
+
+    .active, .collapsible:hover {
+      background-color: #555;
+    }
+
+    .content {
+      padding: 0 18px;
+      display: none;
+      overflow: hidden;
+      background-color: #f1f1f1;
+    }
+    input[type=text], select, textarea {
+      width: 100%; /* Full width */
+      padding: 12px; /* Some padding */
+      border: 1px solid #ccc; /* Gray border */
+      border-radius: 4px; /* Rounded borders */
+      box-sizing: border-box; /* Make sure that padding and width stays in place */
+      margin-top: 6px; /* Add a top margin */
+      margin-bottom: 16px; /* Bottom margin */
+      resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+    }
+
+    /* Style the submit button with a specific background color etc */
+    input[type=submit] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* When moving the mouse over the submit button, add a darker green color */
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+
+    /* Add a background color and some padding around the form */
+    .containers {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body class="body">
+<div id="Topbar" class="topbar w-container">
+  <a id="Home" href="home" class="button-14 w-button">Home</a>
+  <a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a>
+  <a id="Message" href="message" class="button-2 w-button">Message</a>
+  <a id="Favorite" href="favorite" class="button-2 w-button">Favorite</a>
+  <a id="History" href="history" class="button-2 w-button">History</a>
+  <a id="LogOut" href="signout" class="button-2 w-button">Log out</a>
+</div>
+<div id="comic" class="w-layout-grid grid-3">
+
+  <img th:src="${session.seriescover}" id="cover" alt="" class="image-2 w-node-0f9c0b849902-fdb4ecab">
+
+  <div id="title" class="text-block-2 w-node-0f9c0b849903-fdb4ecab">Title: <span th:text="${session.series.getName()}"></span></div>
+
+  <a th:href="@{/author(id=${session.series.getAuthorid()})}"><div id="author" class="text-block-2 w-node-0f9c0b849905-fdb4ecab">Author: <span th:text="${session.seriesname}"></span></div>
+  </a>
+    <div id="subscribe" class="text-block-2 w-node-0f9c0b849907-fdb4ecab">Subscribe: <span th:text="${session.series.getSubnumber()}"></span></div>
+  <div id="comicRate" class="text-block-2 w-node-0f9c0b849909-fdb4ecab">Rate: <span th:text="${session.series.getRate()}"></span></div>
+  <div id="category" class="text-block-2 w-node-0f9c0b84990b-fdb4ecab">Category: <span th:text="${session.seriestag}"></span></div>
+</div>
+<div class="columns w-row">
+  <!--<div class="column w-col w-col-4"><a id="read" href="#" class="button-17 w-button">Start Reading</a></div>-->
+  <div class="column-2 w-col w-col-2"><a id="toSubscribe" onclick="subscribeComic()" class="button-15 w-button" >Subscribe</a></div>
+
+  <div class="column-3 w-col w-col-2"><a id="like" href="#" class="button-15 w-button">Favorite</a></div>
+
+  <div class="column-4 w-col w-col-2">
+    <label class="container">Like
+      <input id="likeb" type="radio" name="radio" onclick="favorite('like')">
+      <span class="checkmark"></span>
+    </label>
+    <label class="container">Dislike
+      <input id="dislikeb" type="radio" name="radio" onclick="favorite('dislike')">
+      <span class="checkmark"></span>
+    </label>
+  </div>
+  <!--
+  <div class="column-4 w-col w-col-2"><a id="favorite" href="#" class="button-15 w-button">Favorite</a></div>
+  <div class="column-5 w-col w-col-2"><a id="dislike" href="#" class="button-15 w-button">Dislike</a></div>
+  -->
+</div>
+
+<script th:inline="javascript">
+  var seriesid=/*[[${session.series.getId()}]]*/ 0;
+  var ui= /*[[${session.userid}]]*/ 0;
+  var seriesList=/*[[${session.subscribeComicList}]]*/ null;
+  var likeList=/*[[${session.likeList}]]*/ null;
+  var subbutton=document.getElementById("toSubscribe");
+  var likebut=document.getElementById("likeb");
+  var dislikebut=document.getElementById("dislikeb");
+  var likeState=/*[[${session.likeitem}]]*/ null;
+  var exist=false;
+
+  for(var i=0;i<seriesList.length;i++){
+    if(seriesid==seriesList[i])
+      exist=true;
+  }
+  if(!exist){
+    subbutton.innerHTML="Subscribe";
+  }
+  else{
+    subbutton.innerHTML="Unsubscribe";
+  }
+  console.log(likeState);
+  var likeexist=false;
+  if(likeList!=null) {
+    for (var i = 0; i < likeList.length; i++) {
+      if (seriesid == likeList[i])
+        likeexist = true;
+    }
+  }
+  if(likeexist){
+    if(likeState=="like"){
+      likebut.checked=true;
+      dislikebut.checked=false;
+    }
+    if(likeState=="dislike"){
+      dislikebut.checked=true;
+      likebut.checked=false;
+    }
+  }
+  else{
+    dislikebut.checked=false;
+    likebut.checked=false;
+  }
+  function subscribeComic(){
+    window.location.href = "/toSubscribe?seriesid="+seriesid+"&subscribe="+subbutton.innerHTML;
+  }
+
+  function favorite(state){
+    window.location.href = "/like?seriesid="+seriesid+"&state="+state;
+  }
+
+
+</script>
+<div class="text-block-3">Chapters:</div>
+<div id="chapterArea" class="w-layout-grid grid-4">
+  <div id="chapter11" class="text-block-4 w-node-1d28ae71ae6d-fdb4ecab" th:each="chapter:${session.comics}">
+    <a th:href="@{/read(id=${chapter.getId()},index=1)}">Chapter  <span th:text="${chapter.getIndexs()}"></span> </a></div>
+</div>
+<div id="commentDiv" class="div-block-2">
+  <div id="commentHeader" class="text-block-5">Comments</div>
+  <button class="collapsible">Add comment</button>
+  <div class="content">
+    <div class="containers">
+      <form method='post' action="seriesaddcomment">
+        <label >Comment</label>
+        <textarea id="comment" name="comment" placeholder="Great!!!" style="height:200px"></textarea>
+        <input type='submit' value='Submit' />
+      </form>
+    </div>
+  </div>
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+  </script>
+
+  <ul id="commentArea" class="list">
+<!--    <li>
+      <div id="comment1" class="text-block-6">Great!!!</div>
+    </li>-->
+    <!--<li id="commentlist">
+
+      <div id="chapterToolbar" class="columns1 w-row">
+        <div class="w-col w-col-3">
+          <img>
+          <a id="previousChapter" >Previous Chapter</a>
+        </div>
+        <div class="w-col w-col-7">
+          <div id="t" >aaa</div>
+        </div>
+      </div>
+
+    </li>-->
+  </ul>
+  <script th:inline="javascript">
+    var seriescomments=/*[[${session.seriescomments}]]*/ null;
+    var commentusers=/*[[${session.commentusers}]]*/ null;
+    var commentimages=/*[[${session.commentimages}]]*/ null;
+    var commentArea=document.getElementById("commentArea");
+    if(seriescomments==null || seriescomments.length==0){
+      var content = document.createElement("div");
+      content.setAttribute("class","text-block-6");
+      content.innerHTML = "Empty";
+      commentArea.appendChild(content);
+    }
+    else{
+      for (var i = 0; i < seriescomments.length; i++) {
+        var commentList=document.createElement("li");
+        var row=document.createElement('div');
+        row.setAttribute("class", "columns1 w-row");
+        var col1=document.createElement('div');
+        col1.setAttribute("class", "w-col w-col-3");
+
+        var img = document.createElement("img");
+        img.src = commentimages[i];
+        img.setAttribute("height", "120");
+        img.setAttribute("width", "120");
+        img.alt="";
+        //img.className+=" image-3";
+        col1.appendChild(img);
+        row.appendChild(col1);
+
+        var br=document.createElement('BR');
+        col1.appendChild(br);
+
+        var username = document.createElement("div");
+        username.setAttribute("class","text-block-6");
+        username.innerHTML = "  "+commentusers[i].name;
+        col1.appendChild(username);
+
+        var date = document.createElement("div");
+        date.setAttribute("class","text-block-7");
+        date.innerHTML = seriescomments[i].date.substring(0,19);
+        col1.appendChild(date);
+        row.appendChild(col1);
+
+        var col2=document.createElement('div');
+        col2.setAttribute("class", "w-col w-col-7");
+
+        var comment = document.createElement("div");
+        comment.setAttribute("class","text-block-6");
+        comment.innerHTML = seriescomments[i].content;
+        col2.appendChild(comment);
+        row.appendChild(col2);
+        commentList.appendChild(row);
+        commentArea.appendChild(commentList);
+      }
+    }
+  </script>
+
+</div>
+<script src="https://d1tdp7z6w94jbb.cloudfront.net/js/jquery-3.3.1.min.js" type="text/javascript" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="js/webflow.js" type="text/javascript"></script>
+<!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+</body>
+</html>

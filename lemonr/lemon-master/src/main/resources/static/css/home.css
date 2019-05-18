@@ -1,0 +1,281 @@
+.topbar {
+  padding-left: 3px;
+  text-align: center;
+  background-color: #8BD8BD;
+}
+#Home,#PersonalCenter,#Message,#Favorite,#History,#LogOut{
+
+  color: #243665;
+  padding-left: 3px;
+  padding-right: 3px ;
+  text-align: center;
+  background-color: #8BD8BD;
+  font-family: 'Tamil MN';
+  font-weight: bold;
+  font-size: 14px;
+  text-align-all: center;
+}
+#Home:hover, #Home:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+#PersonalCenter:hover,#PersonalCenter:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+#Message:hover,#Message:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+#Favorite:hover,#Favorite:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+#History:hover,#History:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+#LogOut:hover,#LogOut:active{
+  background-color: #243665;
+  color: #8BD8BD;
+}
+.button {
+  margin-left: 189px;
+
+}
+input[type=button] {
+  border-radius: 40%;
+  font-family: 'Tamil MN';
+  font-weight: bold;
+  font-size: 14px;
+  background-color: white;
+  color: #243665;
+}
+input[type=button]:hover,input[type=button]:active{
+  background-color: #8BD8BD;
+  color: #243665;
+}
+.button-2 {
+  margin-left: 40px;
+}
+
+.button-3 {
+  margin-left: 40px;
+}
+
+.button-4 {
+  margin-left: 40px;
+}
+
+.button-5 {
+  margin-left: 40px;
+}
+
+.button-6 {
+  margin-left: 40px;
+}
+
+.button-7 {
+  margin-left: 40px;
+}
+
+.form {
+  width: 500px;
+  margin-top: -88px;
+  margin-bottom: -3px;
+  margin-left: 342px;
+}
+
+.search {
+  width: 500px;
+  margin: -64px -25px 10px 329px;
+}
+
+.search-button {
+  border-radius: 8px;
+  margin-top: -130px;
+  margin-bottom: 1px;
+  margin-left: 526px;
+  background-color: #8BD8BD;
+  color: #243665;
+  font-family: 'Tamil MN';
+  font-weight: bold;
+  font-size: 14px;
+//opacity: 0.7;
+}
+.search-button:hover{
+  background-color: #243665;
+  color: #8BD8BD;
+  opacity: 1;
+}
+
+.search-input {
+  margin-bottom: -28px;
+  margin-left: 6px;
+  border-radius: 8px;
+}
+#recommandation{
+  font-family: 'Tamil MN';
+  font-weight: bold;
+}
+
+.badge {
+  top: -20px;
+  right: -10px;
+
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: red;
+  color: white;
+}
+
+.body {
+//background-color: #e8eaed;
+}
+
+.div-block {
+  height: 70px;
+  margin-top: 47px;
+  margin-bottom: -14px;
+  padding-top: 0px;
+  border: 1px none #000;
+  border-radius: 0px;
+  color: #ce1c1c;
+  text-align: center;
+}
+
+.button-8 {
+  margin-left: 50px;
+}
+
+.button-9 {
+  margin-left: 50px;
+}
+
+.button-10 {
+  margin-left: 50px;
+}
+
+.button-11 {
+  margin-left: 50px;
+}
+
+.button-12 {
+  margin-left: 50px;
+}
+
+.button-13 {
+  margin-left: 50px;
+}
+
+.form-2 {
+  margin-top: 180px;
+  margin-bottom: 38px;
+  padding-bottom: 26px;
+}
+
+.bold-text {
+  width: 100px;
+  height: 100px;
+  padding-left: 22px;
+  font-size: 30px;
+}
+
+.text-block {
+  height: 200px;
+  margin-top: 60px;
+  margin-bottom: -39px;
+  padding-top: 0px;
+  padding-bottom: 119px;
+  padding-left: 7px;
+}
+
+.div-block-2 {
+  margin-top: 157px;
+  margin-bottom: -126px;
+}
+
+.heading {
+  margin-top: 160px;
+  margin-bottom: -5px;
+  margin-left: 311px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.div-block-3 {
+  margin-top: 120px;
+  margin-bottom: 20px;
+  padding-top: 0px;
+}
+
+.image {
+  margin-left: 58px;
+}
+
+.image-2 {
+  margin-left: 57px;
+  text-align: left;
+}
+
+.image-3 {
+  margin-left: 35px;
+}
+
+.div-block-4 {
+  text-align: center;
+  float: left;
+}
+
+.button-14 {
+  font-family: 'Times New Roman', TimesNewRoman, Times, Baskerville, Georgia, serif;
+}
+
+.utility-page-wrap {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100%;
+  max-width: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.utility-page-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 260px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  text-align: center;
+}
+
+.utility-page-form {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
