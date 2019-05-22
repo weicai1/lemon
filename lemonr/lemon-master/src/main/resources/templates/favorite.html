@@ -19,13 +19,14 @@
   <div id="Topbar" class="topbar w-container">
     <a id="Home" href="home" class="button-14 w-button">Home</a>
     <a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a>
-    <a id="Message" href="message" class="button-2 w-button">Message</a>
+    <a id="Message" href="message" class="button-3 w-button"><span>Message</span><span class="badge"><span th:text="${session.messagenum}"></span></span></a>
     <a id="Favorite" href="favorite" class="button-2 w-button">Favorite</a>
     <a id="History" href="history" class="button-2 w-button">History</a>
     <a id="LogOut" href="signout" class="button-2 w-button">Log out</a>
   </div>
 
-  <div id="boarder" class="div-block-2">
+
+  <div id="boarder">
     <div id="header" class="text-block-4">Favorite</div>
     <!--
     <div id="comic" class="w-layout-grid grid-4">
@@ -48,20 +49,21 @@
 
         var link = document.createElement('a');
         link.href = "series?id=" + fcl[i].id;
+        link.setAttribute("class","link");
         var img = document.createElement("img");
         img.src = covers[i];
-        img.setAttribute("height", "180");
-        img.setAttribute("width", "180");
+        // img.setAttribute("height", "180");
+        // img.setAttribute("width", "180");
         img.alt="";
-        img.className+=" image-2 w-node-fdd9deca8e11-da5952fb";
+        img.className+=" image-3 w-node-0dac08b5cfc3-ea807e57";
         img.id+=" cover";
         link.appendChild(img);
         div.appendChild(link);
 
         var title = document.createElement("div");
-        title.setAttribute("class","text-block-2 w-node-fdd9deca8e12-da5952fb");
-        //title.setAttribute("id","title");
-        title.innerHTML = "Title: "+fcl[i].name+"<br><br>"+"Author: "+authors[i];
+        title.setAttribute("class","text-block-2 w-node-0dac08b5cfc4-ea807e57");
+        title.setAttribute("id","title");
+        title.innerHTML = "Title: "+fcl[i].name+"<br><br><br>"+"Author: "+authors[i];
         div.appendChild(title);
         sa.appendChild(div);
       }

@@ -11,7 +11,25 @@ body {
     background-color: #fff;
     margin: 2px;
 }
+.topbar {
+    padding-left: 3px;
+    text-align: center;
+    background-color: #f1f4eb;
+    width: 100%;
+}
+.badge {
+    top: -20px;
+    right: -10px;
 
+    padding: 5px 10px;
+    border-radius: 8px;
+    background: red;
+    color: white;
+}
+.badge:hover{
+    background: #bc4747;
+    color: white;
+}
 a{
     text-decoration: underline;
     color: #666666;

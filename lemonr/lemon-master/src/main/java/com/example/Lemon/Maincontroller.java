@@ -123,11 +123,11 @@ public class Maincontroller {
         String email = request.getParameter("email");
         if(password.length()<6 ||password.length()>16){
             session.setAttribute("signup_state",3);
-            return "signup";
+            return "signUp";
         }
         if(!password.equals(password2)){
             session.setAttribute("signup_state",5);
-            return "signup";
+            return "signUp";
         }
         User user = new User();
         user.setName(name);
@@ -141,16 +141,18 @@ public class Maincontroller {
         for (User u : a) {
             if (u.getName().equals(user.getName())) {//username exists
                 session.setAttribute("signup_state", 2);
-                return "signup";
+                return "signUp";
             }
             System.out.println(u.getEmail());
             if(u.getEmail().equals(user.getEmail())){
                 session.setAttribute("signup_state", 4);
-                return "signup";
+                return "signUp";
             }
         }
-        byte[] fileContent = FileUtils.readFileToByteArray(new File("src/main/resources/static/images/default.png"));
-        Blob blob = new SerialBlob(fileContent);
+        User u1 = userRepository.findByName("superuser1").get();
+        //byte[] fileContent = FileUtils.readFileToByteArray(new File("src/main/resources/static/images/default.png"));
+        //Blob blob = new SerialBlob(fileContent);
+        Blob blob =u1.getProfileimage();
         user.setProfileimage(blob);
         userRepository.save(user);
         session.setAttribute("userid", user.getId());
@@ -258,8 +260,8 @@ public class Maincontroller {
         session.setAttribute("newcovers",cs);
         System.out.println(cs);
         session.setAttribute("newnames",newNames);
+
         int messagenum = getmessage(request);
-        System.out.println(messagenum);
         session.setAttribute("messagenum",messagenum);
         return "home";
     }
@@ -418,11 +420,11 @@ public class Maincontroller {
 
 
         List<User> ul = new ArrayList<>();
-        Iterable<User> allUser = userRepository.findAll();
+        Iterable<User> allUser = userRepository.findByIssuperuserAndIdNot(false,Integer.parseInt(""+session.getAttribute("userid")));
         for(User us:allUser){
-            if (us.getId() != session.getAttribute("userid")){
+          //  if (us.getId() != session.getAttribute("userid")){
                 ul.add(us);
-            }
+          //  }
         }
 
 
@@ -936,6 +938,9 @@ public class Maincontroller {
         session.setAttribute("favoriteAuthorList",authorList);
         session.setAttribute("favoriteComicList",favoritecomicList);
         session.setAttribute("favoriteCoverList",coverList);
+
+
+
         return "favorite";
     }
 
@@ -949,10 +954,12 @@ public class Maincontroller {
         ArrayList<User> followerList=new ArrayList<User>();
         ArrayList<String> imageList= new ArrayList<>();
         ArrayList<String> followernameList = new ArrayList<>();
+        ArrayList<Integer> followeridList = new ArrayList<>();
         for(int i=0;i<sbl.size();i++){
             User u = userRepository.findById(sbl.get(i).getUserid()).get();
             followerList.add(u);
             followernameList.add(u.getName());
+            followeridList.add(u.getId());
             Blob page = u.getProfileimage();
             String dataurl;
             if(page==null){
@@ -966,10 +973,11 @@ public class Maincontroller {
         }
         System.out.println("size "+followerList.size());
         System.out.println("BBBBBBBBBBB");
-        for (int i = 0;i<followerList.size();i++){
-            System.out.println(followerList.get(i).getName());
+        for (int i = 0;i<followeridList.size();i++){
+            System.out.println(followeridList.get(i));
         }
         session.setAttribute("followerList",followerList);
+        session.setAttribute("followeridList",followeridList);
         session.setAttribute("followernamelist",followernameList);
         session.setAttribute("authorProfile",imageList);
         return "follower";
@@ -989,7 +997,7 @@ public class Maincontroller {
         session.setAttribute("historypages",null);
         session.setAttribute("historyserieslist",null);
         ArrayList<History> sl = new ArrayList<>();
-        Iterable<History> alls = historyRepository.findAll();
+        Iterable<History> alls = historyRepository.findByUserid(Integer.parseInt(""+session.getAttribute("userid")));
         for(History h:alls){
             sl.add(h);
         }
@@ -1017,8 +1025,9 @@ public class Maincontroller {
                     break;
                 }
                 Series s=seriesRepository.findById(history.getSeriesid()).get();
+                Comic  c = comicRepository.getById(history.getComicid());
                 names.add(s.getName());
-                chapters.add(history.getComicid());
+                chapters.add(c.getIndexs());
                 pages.add(history.getPageindex());
                 Blob cover=s.getCover();
                 s.setCover(null);
@@ -1042,6 +1051,8 @@ public class Maincontroller {
             session.setAttribute("historyState",2);
             //empty
         }
+
+
 
         return "history";
     }
@@ -1176,6 +1187,19 @@ public class Maincontroller {
             System.out.println("size "+slist2.size());
             allseries.addAll(slist2);
         }
+
+
+        List<Subscribedcomic> serieslist= subscribedcomicRepository.findByUserid(Integer.parseInt(""+session.getAttribute("userid")));
+        for(int i = 0;i<serieslist.size();i++){
+            Integer id2 = serieslist.get(i).getSeriesid();//find an author user subscribed
+            //find all series that author updated after user viewed
+            ArrayList<Series> slist2 = (ArrayList<Series>)seriesRepository.findByIdAndUpdatetimeAfter(id2,u.getLastViewTime());
+            if(allseries.indexOf(slist2)==-1) {
+                allseries.addAll(slist2);
+            }
+        }
+
+
         long unixTime = System.currentTimeMillis() / 1000L;
         u.setLastViewTime(unixTime);
         userRepository.save(u);
@@ -1204,15 +1228,15 @@ public class Maincontroller {
             User us = userRepository.findById(s.getAuthorid()).get();
             authors.add(us.getName());
 
-
-
-
         }
         session.setAttribute("timelist",timelist);
         session.setAttribute("coverlist",coverlist);
         session.setAttribute("namelist",namelist);
         session.setAttribute("idlist",idlist);
         session.setAttribute("authorlist", authors);
+        int messagenum = getmessage(request);
+        session.setAttribute("messagenum",messagenum);
+
         return "message";
 
     }
@@ -1234,16 +1258,27 @@ public class Maincontroller {
             Integer id = authorlist.get(i).getAuthorid();//find an author user subscribed
             //find all series that author updated after user viewed
             ArrayList<Series> slist2 = (ArrayList<Series>)seriesRepository.findByAuthoridAndUpdatetimeAfter(id,u.getLastViewTime());
-            System.out.println("size "+slist2.size());
+            //System.out.println("size "+slist2.size());
             allseries.addAll(slist2);
         }
+        //
+        List<Subscribedcomic> serieslist= subscribedcomicRepository.findByUserid(Integer.parseInt(""+session.getAttribute("userid")));
+        for(int i = 0;i<serieslist.size();i++){
+            Integer id2 = serieslist.get(i).getSeriesid();//find an author user subscribed
+            //find all series that author updated after user viewed
+            ArrayList<Series> slist2 = (ArrayList<Series>)seriesRepository.findByIdAndUpdatetimeAfter(id2,u.getLastViewTime());
+            if(allseries.indexOf(slist2)==-1) {
+                allseries.addAll(slist2);
+            }
+        }
+
+
         System.out.println("------------------");
         System.out.println(allseries.size());
         return allseries.size();
 
 
     }
-
 
     @GetMapping("/personal")
     public String personal(HttpServletRequest request) throws SQLException {
@@ -1266,11 +1301,12 @@ public class Maincontroller {
 
         ArrayList<String> covers=new ArrayList<String>();
 
-
+        ArrayList<String> personalsubnums=new ArrayList<String>();
         for(Series s : works){
             Blob cover=s.getCover();
             s.setCover(null);
             workslist.add(s);
+            personalsubnums.add(s.getSubnumber()+"");
             String dataurl2="";
             if(cover==null){
                 dataurl2="";
@@ -1281,8 +1317,9 @@ public class Maincontroller {
             covers.add(dataurl2);
         }
 
-
-
+        List<Subscribedauthor> sa=subscribedauthorRepository.findByAuthorid(user.getId());
+        session.setAttribute("personalsub",sa.size());
+        session.setAttribute("personalsubnums",personalsubnums);
         session.setAttribute("personalcovers",covers);
         session.setAttribute("profileimagepath",dataurl);
         session.setAttribute("currentuser",user);
@@ -1290,6 +1327,10 @@ public class Maincontroller {
 
         return "personal";
     }
+
+
+
+
     @RequestMapping("/search")
     public String search(HttpServletRequest request) throws SQLException {
         HttpSession session = request.getSession();
@@ -1302,11 +1343,13 @@ public class Maincontroller {
         List<Series> sl = new ArrayList<>();
         ArrayList<Integer> allseriesId = new ArrayList<>();
         List<Series> alls = seriesRepository.findByPublish(true);
+        ArrayList<String> authorname = new ArrayList<>();
         for(int i = 0;i<keywords.length;i++){
             for(Series s:alls){
                 if(s.getName().toLowerCase().contains(keywords[i])){
                     if(!allseriesId.contains(s.getId())){
                         sl.add(s);
+                        authorname.add(userRepository.getById(s.getAuthorid()).getName());
                         allseriesId.add(s.getId());
                     }
                 }
@@ -1314,12 +1357,26 @@ public class Maincontroller {
         }
         if(sl!=null && sl.size()>0){
             session.setAttribute("searchState",1);
-
-
             ArrayList<String> covers=new ArrayList<String>();
+            ArrayList<String> categorys=new ArrayList<String>();
             for(Series s:sl){
                 Blob cover=s.getCover();
                 s.setCover(null);
+                Iterable<Category> category = categoryRepository.findAll();
+                String tag="";
+                for(Category c:category){
+                    if(c.getSeriesid()==s.getId()){
+                        tag+=c.getTag();
+                        tag+=",";
+                    }
+                }
+                if (tag.length() > 0) {
+                    tag = tag.substring(0, tag.length() - 1);
+                }
+                categorys.add(tag);
+
+
+
                 String dataurl="";
                 if(cover==null){
                     dataurl="";
@@ -1329,9 +1386,11 @@ public class Maincontroller {
                 }
                 covers.add(dataurl);
             }
-            session.setAttribute("covers",covers);
-            session.setAttribute("serieslist",sl);
 
+            session.setAttribute("covers",covers);
+            session.setAttribute("searchtags",categorys);
+            session.setAttribute("serieslist",sl);
+            session.setAttribute("authorname",authorname);
         }
         else{
             session.setAttribute("searchState",2);
@@ -1363,8 +1422,10 @@ public class Maincontroller {
             dataurl = "data:image/png;base64,"+DatatypeConverter.printBase64Binary(cover.getBytes(1,(int)cover.length()));
         }
         else{
-            byte[] fileContent = FileUtils.readFileToByteArray(new File("src/main/resources/static/images/add.png"));
-            Blob blob = new SerialBlob(fileContent);
+            User u2= userRepository.findByName("superuser2").get();
+            //byte[] fileContent = FileUtils.readFileToByteArray(new File("src/main/resources/static/images/add.png"));
+            //Blob blob = new SerialBlob(fileContent);
+            Blob blob = u2.getProfileimage();
             dataurl = "data:image/png;base64,"+DatatypeConverter.printBase64Binary(blob.getBytes(1,(int)blob.length()));
         }
         int cn = s.getChapternumber();
@@ -2064,6 +2125,13 @@ public class Maincontroller {
                 c.setPublish(true);
                 comicRepository.save(c);
                 pageRepository.save(p);
+                //update time and message
+                Series s =seriesRepository.getById(c.getSeriesid());
+                long unixTime = System.currentTimeMillis() / 1000L;
+                s.setUpdatetime(unixTime);
+                seriesRepository.save(s);
+                int messagenum = getmessage(request);
+                session.setAttribute("messagenum",messagenum);
                 return "redirect:/drawComic?chapterid="+ci+"&pageindex="+pageindex+"&upload=1";
             }
         }
@@ -2155,6 +2223,10 @@ public class Maincontroller {
                 }
                 else{
                     Comic c=(Comic)cs.get(0);
+                    long unixTime = System.currentTimeMillis() / 1000L;
+                    //u.setLastViewTime(unixTime);
+                    s.setUpdatetime(unixTime);
+                    //seriesRepository.save(s);
                     if(!c.getPublish()){
                         return "redirect:/viewChapters?id="+seriesid+"&passpublic=1";
                     }
@@ -2244,7 +2316,7 @@ public class Maincontroller {
     }
 
     @RequestMapping("deletechapter")
-    public String deletechapter(HttpServletRequest request){
+    public String deletechapter(HttpServletRequest request) throws SQLException {
         HttpSession session= request.getSession();
         Series s =(Series)session.getAttribute("currentseries");
         String chapterid=request.getParameter("chapterid");
@@ -2276,8 +2348,14 @@ public class Maincontroller {
                     pageRepository.delete(page);
                 }
             }
-
             comicRepository.delete(c);
+
+            //update time and message
+            long unixTime = System.currentTimeMillis() / 1000L;
+            s.setUpdatetime(unixTime);
+            seriesRepository.save(s);
+            int messagenum = getmessage(request);
+            session.setAttribute("messagenum",messagenum);
             return "redirect:/viewChapters?id="+sid;
         }
     }

@@ -16,6 +16,9 @@ public interface SeriesRepository extends CrudRepository<Series, Integer> {
         List<Series> findByAuthorid(Integer authorid);
         //List<Series> findByAuthoridAndUpdatetimeBefore(Integer authorid,String timestamp);
         List<Series> findByAuthoridAndUpdatetimeAfter(Integer authorid,Long timestamp);
+        List<Series> findByIdAndUpdatetimeAfter(Integer id,Long timestamp);
+
         List<Series> findByPublish(Boolean publish);
         List<Series> findByAuthoridAndPublish(Integer authorid,Boolean publish);
+
 }

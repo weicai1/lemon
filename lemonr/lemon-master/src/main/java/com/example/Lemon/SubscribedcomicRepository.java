@@ -10,4 +10,5 @@ import java.util.List;
 public interface SubscribedcomicRepository extends CrudRepository<Subscribedcomic, Integer> {
     List<Subscribedcomic> findBySeriesidAndUserid(Integer seriesId, Integer userId);
     List<Subscribedcomic> findByUserid(Integer userId);
+
 }

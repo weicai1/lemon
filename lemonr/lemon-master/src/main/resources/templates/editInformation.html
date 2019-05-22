@@ -19,12 +19,12 @@
   <div id="Topbar" class="topbar w-container">
     <a id="Home" href="home" class="button-14 w-button">Home</a>
     <a id="PersonalCenter" href="personal" class="button w-button">Personal Center</a>
-    <a id="Message" href="message" class="button w-button">Message</a>
+    <a id="Message" href="message" class="button-3 w-button"><span>Message</span><span class="badge"><span th:text="${session.messagenum}"></span></span></a>
     <a id="Favorite" href="favorite" class="button w-button">Favorite</a>
     <a id="History" href="history" class="button w-button">History</a>
     <a id="LogOut" href="signout" class="button w-button">Log out</a>
   </div>
-  <div class="text-block-3">My Information</div>
+  <div class="text-block-3">My Information</div><br>
   <div id="boarder" class="div-block-2">
     <div class="w-form">
     <!--  <form id="email-form" name="email-form" data-name="Email Form" class="form"> -->
@@ -32,12 +32,22 @@
 
       <form id="email-form" name="email-form" data-name="Email Form" class="form"  action="editInformation" enctype="multipart/form-data" method="post">
         <div class="text-block-5">Image</div><img th:src="${session.profileimagepath}" width="240" height="240" alt="" class="image-4">
-        <label for="name" class="field-label">Name</label>
-        <input type="text" id="name" name="name" data-name="Name" maxlength="256" class="w-input" th:value="${session.currentuser.getName()}" disabled="disabled">
+        <div><p>Change profile image:</p>
+
+          <input type="file" name="file" >
+
+          <br>
+        </div>
+        <label for="name" class="field-label">Name & Password</label>
+
+        <div>
+          <input type="text" id="name" name="name" data-name="Name" class="w-input" th:value="${session.currentuser.getName()}" disabled="disabled"><a id="changePassword" href="changePassword" class="w-button">Change Password</a>
+        </div>
+        <br>
         <label for="bio" class="field-label-2">Bio</label>
         <input type="text" class="w-input" maxlength="256" name="bio" data-name="bio" id="bio" th:value="${session.currentuser.getSignature()}">
-        <a id="changePassword" href="changePassword" class="w-button">Change Password</a><br>
-      Change profile image: <input type="file" name="file"><br/>
+        <br>
+
       <input type="submit" value="submit">
       </form>
       <div th:if="${session.editstate==2}">
@@ -57,6 +67,7 @@
 </div>
 </div>
 </div>
+
 <script src="https://d1tdp7z6w94jbb.cloudfront.net/js/jquery-3.3.1.min.js" type="text/javascript" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="js/webflow.js" type="text/javascript"></script>
 <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->

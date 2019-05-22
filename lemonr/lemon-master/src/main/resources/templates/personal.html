@@ -16,24 +16,17 @@
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
 </head>
 <body class="body">
-  <div id="Topbar" class="topbar w-container"><a id="Home" href="home" class="button-14 w-button">Home</a><a id="PersonalCenter" href="personal" class="button w-button">Personal Center</a><a id="Message" href="message" class="button w-button">Message</a><a id="Favorite" href="favorite" class="button w-button">Favorite</a><a id="History" href="history" class="button w-button">History</a><a id="LogOut" href="signout" class="button w-button">Log out</a></div>
-  <div class="text-block-3">My Information</div>
+  <div id="Topbar" class="topbar w-container"><a id="Home" href="home" class="button-14 w-button">Home</a><a id="PersonalCenter" href="personal" class="button w-button">Personal Center</a><a id="Message" href="message" class="button-3 w-button"><span>Message</span><span class="badge"><span th:text="${session.messagenum}"></span></span></a><a id="Favorite" href="favorite" class="button w-button">Favorite</a><a id="History" href="history" class="button w-button">History</a><a id="LogOut" href="signout" class="button w-button">Log out</a></div>
+  <br><div class="text-block-3">My Information</div><br>
   <div id="information" class="w-layout-grid grid-3"><img th:src="${session.profileimagepath}" id="cover" alt="" class="image-2 w-node-2d35687954b9-ea807e57">
-    <div id="title" class="text-block-2 w-node-2d35687954ba-ea807e57"> <span th:text="${session.currentuser.getName()}"></span></div>
-    <div id="subscribeNumber" class="text-block-2 w-node-2d35687954bc-ea807e57">Subscribe: 4</div>
+    <div id="title" class="text-block-2"> <span th:text="${session.currentuser.getName()}"></span></div>
+    <div id="subscribeNumber" class="text-block-2">Subscribe: <span th:text="${session.personalsub}"></span></div>
     <div id="bio" class="w-node-2d35687954c0-ea807e57"><span th:text="${session.currentuser.getSignature()}"></span></div>
+    <div><a href="editInformation.html" class="button-16 w-button">Edit My Information</a><a href="createComic" class="button-16 w-button">Create New Comic</a></div>
+    <div><a href="follower" class="button-16 w-button">Followers</a><a href="subscription" class="button-16 w-button">Subscription</a></div>
+
   </div>
-  <div class="w-row">
-    <div class="w-col w-col-2">
-      <div class="div-block-3">
-        <a href="editInformation.html" class="button-16 w-button">Edit My Information</a>
-        <a href="createComic" class="button-16 w-button">Create New Comic</a>
-        <a href="follower" class="button-16 w-button">Followers</a>
-        <a href="subscription" class="button-16 w-button">Subscription</a>
-      </div>
-    </div>
-    <div class="w-col w-col-10">
-      <div id="boarder" class="div-block-2">
+  <div id="boarder" class="boarder_block">
         <div id="header" class="text-block-4">Works</div><!--
         <div id="comic" class="w-layout-grid grid-4">
         <img src="images/Lemon-Man-1.png" id="cover" alt="" class="image-3 w-node-0dac08b5cfc3-ea807e57">
@@ -44,33 +37,34 @@
         <div id="category" class="text-block-2 w-node-0dac08b5cfcc-ea807e57">Category: Funny</div>
         <a id="w-node-002efee08c13-ea807e57" href="#" class="button-17 w-button">Delete this series</a><a id="w-node-991fa503fc72-ea807e57" href="#" class="button-17 w-button">View Chapters</a></div>
       -->
-      </div>
-    </div>
-    <script th:inline="javascript">
+  </div>
+  <script th:inline="javascript">
       var pane= document.getElementById("boarder");
       var works = /*[[${session.works}]]*/ 0;
       var tt=/*[[${session.works}]]*/0;
       var authorname=/*[[${session.currentuser.getName()}]]*/ 0;
+      var subs=/*[[${session.personalsubnums}]]*/ 0;
       for(var i=0;i<works.length;i++){
         var boarder = document.createElement("div");
         boarder.setAttribute("class", "w-layout-grid grid-4");
 
         var a=document.createElement("a");
         a.href="viewChapters.html?id="+tt[i]["id"];
-
+        a.setAttribute("class","link");
         var img = document.createElement("img");
         var xx=/*[[${session.personalcovers}]]*/ "";
         img.src=xx[i];
         img.alt="";
         img.className+=" image-3 w-node-0dac08b5cfc3-ea807e57";
-        img.width="300";
+        img.width="180px";
+        img.height="180px";
         a.appendChild(img);
 
         var temp2 = document.createElement("div");
         temp2.setAttribute("class", "text-block-2 w-node-0dac08b5cfc4-ea807e57");
-        temp2.innerHTML="Title: "+tt[i]["name"]+"<br><br>"+
-                "Author: "+authorname+"<br><br>"+
-                "Suscribe: 0"+"<br><br>"+
+        temp2.innerHTML="Title: "+tt[i]["name"]+"<br><br><br>"+
+                "Author: "+authorname+"<br><br><br>"+
+                "Suscribe: "+subs[i]+"<br><br><br>"+
                 "Rate :"+tt[i]["rate"];
         /*
         var temp6 = document.createElement("div");
@@ -82,8 +76,8 @@
         //boarder.appendChild(temp6);
         pane.appendChild(boarder);
       }
-    </script>
-  </div>
+  </script>
+
   <script src="https://d1tdp7z6w94jbb.cloudfront.net/js/jquery-3.3.1.min.js" type="text/javascript" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="js/webflow.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->

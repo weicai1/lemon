@@ -17,16 +17,16 @@
 </head>
 <body class="body">
 <div id="Topbar" class="topbar w-container">
-  <a id="Home" href="home" class="button-14 w-button">Home</a>
-  <a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a>
-  <a id="Message" href="message" class="button-2 w-button">Message</a>
-  <a id="Favorite" href="favorite" class="button-2 w-button">Favorite</a>
-  <a id="History" href="history" class="button-2 w-button">History</a>
-  <a id="LogOut" href="signout" class="button-2 w-button">Log out</a>
+  <a id="Home" href="home" class="button w-button">Home</a>
+  <a id="PersonalCenter" href="personal" class="button w-button">Personal Center</a>
+  <a id="Message" href="message" class="button-3 w-button"><span>Message</span><span class="badge"><span th:text="${session.messagenum}"></span></span></a>
+  <a id="Favorite" href="favorite" class="button w-button">Favorite</a>
+  <a id="History" href="history" class="button w-button">History</a>
+  <a id="LogOut" href="signout" class="button w-button">Log out</a>
 </div>
 
-<div id="boarder" class="div-block-2" >
-  <div id="header" class="text-block-4">Search Result</div>
+<div id="header" class="text-block-4">Search Result</div>
+<div id="boarder" >
   <!--
   <div id="comic" class="w-layout-grid grid-4">
     <a href="#"><img src="images/Lemon-Man-1.png" id="cover" alt="" class="image-2 w-node-d5ddccecd383-63208978"></a>
@@ -41,26 +41,43 @@
     var li=document.getElementById("boarder");
     var ss=/*[[${session.searchState}]]*/0;
     var sl= /*[[${session.serieslist}]]*/0;
+    var nl= /*[[${session.authorname}]]*/0;
     var covers =/*[[${session.covers}]]*/0;
+    var searchtags =/*[[${session.searchtags}]]*/0;
     console.log(ss);
     if(ss==1) {
       for (var i = 0; i < sl.length; i++) {
+        var boarder = document.createElement("div");
+        boarder.setAttribute("class", "w-layout-grid grid-4");
+
         var link = document.createElement('a');
         link.href = "series?id=" + sl[i].id;
+        link.setAttribute("class","link");
+
         var img = document.createElement("img");
         img.src = covers[i];
-        img.setAttribute("height", "240");
-        img.setAttribute("width", "240");
+        // img.setAttribute("height", "240");
+        // img.setAttribute("width", "240");
+        img.className+=" image-3 w-node-0dac08b5cfc3-ea807e57";
         link.appendChild(img);
-        li.appendChild(link);
-        var text = document.createElement("h2");
-        text.innerHTML = sl[i].name;
-        li.appendChild(text);
+        boarder.appendChild(link);
+        var text = document.createElement("div");
+        text.setAttribute("class", "text-block-2 title w-node-0dac08b5cfc4-ea807e57");
+        var des = "";
+        if(sl.description == null){
+          des = "";
+        }
+        else{
+          des = sl.description;
+        }
+        text.innerHTML = "Title: " +sl[i].name+"<br><br><br>"+"Author: "+nl[i]+"<br><br><br>"+"Tags: "+searchtags[i];
+        boarder.appendChild(text);
+        li.appendChild(boarder);
       }
     }
     else{
       var text = document.createElement("h2");
-      text.innerHTML = "There is no such results.";
+      text.innerHTML = "<br>&nbsp;&nbsp;There are no such results.";
       li.appendChild(text);
     }
   </script>

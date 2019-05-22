@@ -77,7 +77,7 @@
 <div id="Topbar" class="topbar w-container">
   <a id="Home" href="home" class="button-14 w-button">Home</a>
   <a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a>
-  <a id="Message" href="message" class="button-2 w-button">Message</a>
+  <a id="Message" href="message" class="button-3 w-button"><span>Message</span><span class="badge"><span th:text="${session.messagenum}"></span></span></a>
   <a id="Favorite" href="favorite" class="button-2 w-button">Favorite</a>
   <a id="History" href="history" class="button-2 w-button">History</a>
   <a id="LogOut" href="login" class="button-2 w-button">Log out</a>
@@ -213,8 +213,8 @@
 
 
 <div id="pageToolbar" class="columns w-row">
-  <div class="w-col w-col-2"><a id="first" th:href="@{/read(id=${session.page.getComicid()},index=1)}" class="button-15 w-button">First</a></div>
-  <div class="w-col w-col-2"><a id="previous"  class="button-15 w-button" onmousedown="changePage2(1)">Previous</a></div>
+  <div class="w-col w-col-2"><a id="first" th:href="@{/read(id=${session.page.getComicid()},index=1)}" class="button-15 w-button"><< First</a></div>
+  <div class="w-col w-col-2"><a id="previous"  class="button-15 w-button" onmousedown="changePage2(1)">< Prev</a></div>
   <div class="w-col w-col-4">
     <select id="page2" name="field-2" class="selectPages w-select" onchange="gotoindex()">
 
@@ -233,8 +233,8 @@
       ss.selectedIndex=index-1;
     </script>
   </div>
-  <div class="w-col w-col-2"><a id="next"   class="button-15 w-button" onmousedown="changePage2(2)">Next</a></div>
-  <div class="w-col w-col-2"><a id="last" th:href="@{/read(id=${session.page.getComicid()},index=${session.pagenumber})}" class="button-15 w-button">Last</a></div>
+  <div class="w-col w-col-2"><a id="next"   class="button-15 w-button" onmousedown="changePage2(2)">Next ></a></div>
+  <div class="w-col w-col-2"><a id="last" th:href="@{/read(id=${session.page.getComicid()},index=${session.pagenumber})}" class="button-15 w-button">Last >></a></div>
 </div>
 
 

@@ -27,7 +27,7 @@
   <div id="Topbar" class="topbar w-container">
     <a id="Home" href="home" class="button-14 w-button">Home</a>
     <a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a>
-    <a id="Message" href="message" class="button-2 w-button">Message</a>
+    <a id="Message" href="message" class="button-3 w-button"><span>Message</span><span class="badge"><span th:text="${session.messagenum}"></span></span></a>
     <a id="Favorite" href="favorite" class="button-2 w-button">Favorite</a>
     <a id="History" href="history" class="button-2 w-button">History</a>
     <a id="LogOut" href="signout" class="button-2 w-button">Log out</a>
@@ -35,7 +35,7 @@
 </nav>
 <div class="w-form">
   <div id="createComics" class="form">
-    <label class="field-label-3">new series</label>
+    <label class="field-label-3">New series</label>
     <form class="form-inline">
       <div class="input-group" style="margin-left: 25%;">
         <div class="input-group-prepend">
@@ -65,7 +65,7 @@
         </select>
       <br>
       -->
-    <h2>Choose your tags.</h2>
+    <h2>Choose your tags</h2>
     <input type="checkbox" value="Tragedy" name="items[]"  />
     <label class="float--none">Tragedy</label><br />
     <input type="checkbox" value="Action" name="items[]"  />

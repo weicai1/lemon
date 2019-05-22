@@ -17,8 +17,14 @@
 </head>
 <body class="body">
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-  <div id="Topbar" class="topbasr w-container"><a id="Home" href="home" class="button-14 w-button">Home</a><a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a><a id="Message" href="message" class="button-2 w-button">Message</a><a id="Favorite" href="favorite" class="button-2 w-button">Favorite</a><a id="History" href="history" class="button-2 w-button">History</a><a id="LogOut" href="signout" class="button-2 w-button">Log out</a></div>
-
+<div id="Topbar" class="topbar w-container">
+  <a id="Home" href="home" class="button-14 w-button">Home</a>
+  <a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a>
+  <a id="Message" href="message" class="button-3 w-button"><span>Message</span><span class="badge"><span th:text="${session.messagenum}"></span></span></a>
+  <a id="Favorite" href="favorite" class="button-2 w-button">Favorite</a>
+  <a id="History" href="history" class="button-2 w-button">History</a>
+  <a id="LogOut" href="signout" class="button-2 w-button">Log out</a>
+</div>
   <script th:inline="javascript">
     var url = document.location.toString();
     var arrObj = url.split("?");
@@ -53,8 +59,8 @@
     }
 
   </script>
-  <div>
-    <img id="thisimg" th:src="${session.cover}" onclick="fileSelect();" width="450px" height="500px">
+  <div id="imagelink">
+    <img id="thisimg" th:src="${session.cover}" onclick="fileSelect();">
     <form th:action= "@{/changecover(id=${session.seriesid})}" id="form_face" enctype="multipart/form-data" method="post" style="width:auto;">
       <input type="file" name="fileToUpload" id="fileToUpload"  style="display:none;">
     </form>
@@ -111,9 +117,9 @@
       });
     })
   </script>
-    <div>
-    <a href="makepublic">
-      Make this Comic be public.
+    <div class="linkdiv">
+    <a class="link" href="makepublic">
+      Make this Comic be public
     </a>
   </div>
 <script>
@@ -134,22 +140,27 @@
     var cps=/*[[${session.chapters}]]*/0;
     console.log(cn);
     for(var i=0;i<cn;i++){
+      var d3 = document.createElement("div");
+      d3.setAttribute("class","div3");
+      var d2 = document.createElement("div");
+      d2.setAttribute("class","div2");
       var img= document.createElement("img");
       img.src=ccover[i];
       img.id+=" cover";
       img.alt="";
       img.className+=" image-2 w-node-703136f8adfa-76809e6d";
-      pane.appendChild(img);
+      d2.appendChild(img);
 
       var namediv =document.createElement("div");
-      namediv.setAttribute("class","text-block-2 w-node-703136f8adfb-76809e6d");
-      namediv.innerHTML="Chapter "+(i+1);
+      namediv.setAttribute("class","namediv");
+      //namediv.setAttribute("class","text-block-2 w-node-703136f8adfb-76809e6d");
+      namediv.innerHTML="<br>Chapter "+(i+1)+"<br>";
 
-      pane.appendChild(namediv);
+      d2.appendChild(namediv);
     //  pane.appendChild(dd);
 
       var d = document.createElement("div");
-
+      d.setAttribute("class","div");
       var edit = document.createElement("a");
       edit.setAttribute('class',"button-15 w-node-9f4d0421c46a-76809e6d w-button");
       edit.innerHTML="Edit this chapter";
@@ -164,8 +175,9 @@
       s.innerHTML="Delete this chapter";
       s.href="deletechapter?chapterid="+cps[i]['id'];
       d.appendChild(s);
-
-      pane.appendChild(d);
+      d3.appendChild(d2);
+      d3.appendChild(d);
+      pane.appendChild(d3);
 
       /*
       var editbutton = document.createElement("a");
@@ -185,8 +197,17 @@
     var addbutton = document.createElement("a");
     addbutton.id="add";
     addbutton.href="addComic?create=1&chapterindex="+(cn+1);
-    addbutton.innerHTML="Add one chapter";
+    var namediv =document.createElement("div");
+    namediv.setAttribute("class","namediv");
+    //namediv.setAttribute("class","text-block-2 w-node-703136f8adfb-76809e6d");
+    namediv.innerHTML="Add one chapter";
+    //addbutton.innerHTML="Add one chapter";
     addbutton.setAttribute('class',"button-16 w-button");
+    var img= document.createElement("img");
+    //img.setAttribute("class","addimg");
+    img.src="../images/add.png";
+    addbutton.appendChild(namediv);
+    addbutton.appendChild(img);
     pane.appendChild(addbutton);
   </script>
 

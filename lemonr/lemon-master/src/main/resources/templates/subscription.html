@@ -19,14 +19,15 @@
   <div id="Topbar" class="topbar w-container">
     <a id="Home" href="home" class="button-14 w-button">Home</a>
     <a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a>
-    <a id="Message" href="message" class="button-2 w-button">Message</a>
+    <a id="Message" href="message" class="button-3 w-button"><span>Message</span><span class="badge"><span th:text="${session.messagenum}"></span></span></a>
     <a id="Favorite" href="favorite" class="button-2 w-button">Favorite</a>
     <a id="History" href="history" class="button-2 w-button">History</a>
     <a id="LogOut" href="signout" class="button-2 w-button">Log out</a>
   </div>
   <div id="boarder" class="div-block-2">
-    <div id="header" class="text-block-4">Subscription</div>
+    <!--<div id="header" class="text-block-4">Subscription</div>-->
     <div id="authorArea" class="div-block-3">
+      <br>
       <div id="authorHeader" class="text-block-6">Author</div>
       <!--
       <div class="columns w-row">
@@ -39,6 +40,7 @@
       -->
     </div>
     <div id="seriesArea" class="div-block-4">
+      <br>
       <div id="seriesHeader" class="text-block-6">Series</div>
       <!--
       <div id="comic" class="w-layout-grid grid-4">
@@ -57,32 +59,38 @@
         var covers =/*[[${session.seriesCoverList}]]*/0;
         if(sas!=null) {
           for (var i = 0; i < sas.length; i++) {
-            var div=document.createElement('div');
-            div.setAttribute("class", "columns w-row");
-            var part1=document.createElement('div');
-            part1.setAttribute("class", "column w-col w-col-3");
+            var div = document.createElement("div");
+            div.setAttribute("class", "w-layout-grid grid-4");
+
 
             var link = document.createElement('a');
             link.href = "author?id=" + sas[i].id;
+            link.setAttribute("class","link");
             var img = document.createElement("img");
+
             img.src = aps[i];
-            img.setAttribute("height", "90");
-            img.setAttribute("width", "90");
+            img.setAttribute("height", "150");
+            img.setAttribute("width", "150");
+            img.setAttribute("class","image");
             img.alt="";
             link.appendChild(img);
-            part1.appendChild(link);
-            div.appendChild(part1);
+            //part1.appendChild(link);
+            //div.appendChild(part1);
 
-            var part2=document.createElement('div');
-            part2.setAttribute("class", "w-col w-col-9");
+            //var part2=document.createElement('div');
+            //part2.setAttribute("class", "w-col w-col-9");
             var title = document.createElement("div");
-            title.setAttribute("class","text-block-5");
+            title.setAttribute("class","text-block-2");
             //title.setAttribute("id","title");
-            title.innerHTML = sas[i].name;
-            part2.appendChild(title);
-            div.appendChild(part2);
+            title.innerHTML = "<br>"+sas[i].name+"<br><br><br>"+sas[i].signature;
+            //part1.appendChild(title);
+            //part2.appendChild(title);
+            //div.appendChild(part1);
+            div.appendChild(link);
+            div.appendChild(title);
             aa.appendChild(div);
           }
+          //aa.appendChild(div);
         }
         if(sss!=null) {
           for (var i = 0; i < sss.length; i++) {
@@ -91,10 +99,11 @@
 
             var link = document.createElement('a');
             link.href = "series?id=" + sss[i].id;
+            link.setAttribute("class","link")
             var img = document.createElement("img");
             img.src = covers[i];
-            img.setAttribute("height", "180");
-            img.setAttribute("width", "180");
+            img.setAttribute("height", "150");
+            img.setAttribute("width", "150");
             img.alt="";
             img.className+=" image-2 w-node-fdd9deca8e11-da5952fb";
             img.id+=" cover";
@@ -104,10 +113,11 @@
             var title = document.createElement("div");
             title.setAttribute("class","text-block-2 w-node-fdd9deca8e12-da5952fb");
             //title.setAttribute("id","title");
-            title.innerHTML = "Title: "+sss[i].name;
+            title.innerHTML = "<br>Title:  "+sss[i].name;
             div.appendChild(title);
             sa.appendChild(div);
           }
+          //sa.appendChild(div);
         }
 
 

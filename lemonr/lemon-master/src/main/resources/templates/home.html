@@ -16,7 +16,7 @@
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
 </head>
 <body class="body">
-<nav class="navbar navbar-purple bg-purple" style="background:#8BD8BD">
+<nav class="navbar navbar-purple bg-purple"> <!--style="background:#aace67"-->
   <div id="Topbar" class="topbar w-container">
     <a id="Home" href="home" class="button-14 w-button">Home</a>
     <a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a>
@@ -26,10 +26,11 @@
     <a id="LogOut" href="signout" class="button-7 w-button">Log out</a>
   </div>
 </nav>
-<img src="images/lemon.png" width="172" id="Lemon" alt="">
+<!--<img src="images/lemon.png" width="172" id="Lemon" alt="">-->
+<br><br><br><br><br><br>
 <form  id="SearchBar" class="search w-form" action="search">
-  <input type="text" class="search-input w-input" maxlength="256" name="keyword" placeholder="Search…" id="keyword" required="">
-  <input type="submit" value="Search" onmousedown="search(event)" class="search-button w-button">
+  <input type="text" class="search-input" maxlength="256" name="keyword" placeholder="   Search…" id="keyword" required="">
+  <input type="submit" value="Search" onmousedown="search(event)" class="search-button">
 
   <script th:inline="javascript">
     function search(e){
@@ -45,12 +46,12 @@
   <INPUT TYPE="button" id="Action" class="w-button" VALUE="Action" ONCLICK="passtag(this.value)">
   <INPUT TYPE="button" id="Adventure" class="w-button" value="Adventure" ONCLICK="passtag(this.value)">
   <INPUT TYPE="button" id="Detective" class="w-button" VALUE="Detective" ONCLICK="passtag(this.value)">
-  <INPUT TYPE="BUTTON" id="Fantasy" class="w-button" VALUE="Fantasy" ONCLICK="passtag(this.value)">
+  <INPUT TYPE="BUTTON" id="Fantasy" class="w-button" VALUE="Fantasy" ONCLICK="passtag(this.value)"><br><br>
   <INPUT TYPE="BUTTON" id="Mystery" class="w-button" VALUE="Mystery" ONCLICK="passtag(this.value)">
   <INPUT TYPE="BUTTON" id="Romance" class="w-button" VALUE="Romance" ONCLICK="passtag(this.value)">
   <INPUT TYPE="button" id="Sports" class="w-button" value="Fantasy" ONCLICK="passtag(this.value)">
   <INPUT TYPE="BUTTON" id="Supernatural" class="w-button" VALUE="Supernatural" ONCLICK="passtag(this.value)">
-  <INPUT TYPE="BUTTON" id="Funny" class="w-button" VALUE="Funny" ONCLICK="passtag(this.value)">
+  <INPUT TYPE="BUTTON" id="Funny" class="w-button" VALUE="Funny" ONCLICK="passtag(this.value)"><br><br><br>
 
 
   <script th:inline="javascript">
@@ -74,7 +75,7 @@
 <!--  <a id="Tragedy" href="category" class="button-12 w-button">Tragedy</a>-->
 <!--  <a id="ScienceFiction" href="category" class="button-13 w-button">Science Fiction</a>-->
 <!--</div>-->
-<h1 id="Recommendation">Recommendation</h1>
+<br><br><br><h1 id="Recommendation">Recommendation</h1><br><br>
 
 <div id="recommandation"  class="div-block-4" >
 
@@ -83,7 +84,14 @@
     var div =document.getElementById("recommandation");
     var i =0;
     var series = /*[[${session.series}]]*/0;
-    for(var i=0;i<covers.length;i++){
+    var names = /*[[${session.names}]]*/0;
+    var row=document.createElement('div');
+    row.setAttribute("class", "row");//columnsh w-row
+    var temp  = 6;
+    if(covers.length<6){
+      temp =covers.length;
+    }
+    for(var i=0;i<temp;i++){
       var cover = covers[i];
       var img = document.createElement("img");
       var id =series[i]["id"];
@@ -91,33 +99,57 @@
       img.src=cover;
       img.id=id;
       console.log(2);
-      img.style="float: left";
-      img.width="150";
-      img.height="150";
-      img.class="image-3";
+      //img.style="float: left";
+      img.width="200";
+      img.height="200";
+      img.class="home-img";
       img.alt="";
       var a= document.createElement("a");
       a.href = link;
       console.log(3);
       a.appendChild(img);
-      div.appendChild(a);
+      //var name= document.createTextNode(names[i]);
+      //name.innerText = names[i];
+      //console.log(name);
+      var nm=document.createElement('div');
+      nm.innerHTML += "<h2>"+names[i]+"</h2>";
+      nm.setAttribute("class","name");
+      var col1=document.createElement('div');
+      col1.setAttribute("class", "column");//w-col w-col-1
+      col1.appendChild(a);
+      col1.appendChild(nm);
+      //col1.appendChild(name);
+      var a2= document.createElement("a");
+      a2.href = link;
+      a2.setAttribute("class","outlink");
+      a2.appendChild(col1);
+      row.appendChild(a2);
+      //div.appendChild(a);
 
     }
+    div.appendChild(row);
     console.log(4);
   </script>
 </div>
-<br><br><br><br><br><br><br><br>
-<h1 id="Top10">Top Newest</h1>
+<br><br>
+<h1 id="Top10">Top Newest</h1><br><br>
 <div id="topten" class="div-block-4" >
 
 
   <script th:inline="javascript">
-    var length=/*[[${session.covers.size()}]]*/0;
     var div =document.getElementById("topten");
     var i =0;
+    var covers=/*[[${session.newcovers}]]*/0;
+    var series = /*[[${session.newseries}]]*/0;
+    var row=document.createElement('div');
 
-    var series = /*[[${session.series}]]*/0;
-    for(var i=0;i<length;i++){
+    row.setAttribute("class", "row");//columnsh w-row
+    var names = /*[[${session.newnames}]]*/0;
+    var temp  = 6;
+    if(covers.length<6){
+      temp =covers.length;
+    }
+    for(var i=0;i<temp;i++){
       var cover = covers[i];
       var img = document.createElement("img");
 
@@ -125,25 +157,37 @@
       var link = "/series?id="+id;
       img.src=cover;
       img.id=id;
-      img.style="float: left";
-      img.width="150";
-      img.height="150";
-      img.class="image-3";
+      //img.style="float: left";
+      img.width="200";
+      img.height="200";
+      img.class="home-img";
       img.alt="";
+      //img.setAttribute(border,"1px solid #ce1c1c");
       var a= document.createElement("a");
       a.href = link;
       a.appendChild(img);
-      div.appendChild(a);
+      var nm=document.createElement('div');
+      nm.innerHTML += "<h2>"+names[i]+"</h2>";
+      nm.setAttribute("class","name");
+      var col1=document.createElement('div');
+      col1.setAttribute("class", "column");//w-col w-col-1
+      col1.appendChild(a);
+      col1.appendChild(nm);
+      var a2= document.createElement("a");
+      a2.href = link;
+      a2.setAttribute("class","outlink");
+      a2.appendChild(col1);
+      row.appendChild(a2);
+
 
     }
-
+    div.appendChild(row);
+    console.log(div);
   </script>
-</div>
-
-
-
+</div><br><br>
 <script src="https://d1tdp7z6w94jbb.cloudfront.net/js/jquery-3.3.1.min.js" type="text/javascript" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="js/webflow.js" type="text/javascript"></script>
+
 <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
 </html>

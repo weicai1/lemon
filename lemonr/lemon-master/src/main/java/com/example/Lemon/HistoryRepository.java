@@ -9,4 +9,5 @@ import java.util.ArrayList;
 
 public interface HistoryRepository extends CrudRepository<History, Integer> {
     ArrayList<History> findBySeriesid(Integer seriesId);
+    ArrayList<History> findByUserid(Integer userid);
 }

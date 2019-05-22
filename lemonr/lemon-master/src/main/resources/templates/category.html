@@ -15,15 +15,16 @@
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
 </head>
-<body class="body">
+<nav class="navbar navbar-purple bg-purple"> <!--style="background:#aace67"-->
   <div id="Topbar" class="topbar w-container">
     <a id="Home" href="home" class="button-14 w-button">Home</a>
     <a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a>
-    <a id="Message" href="message" class="button-2 w-button">Message</a>
-    <a id="Favorite" href="favorite" class="button-2 w-button">Favorite</a>
-    <a id="History" href="history" class="button-2 w-button">History</a>
-    <a id="LogOut" href="signout" class="button-2 w-button">Log out</a>
+    <a id="Message" href="message" class="button-3 w-button"><span>Message</span><span class="badge"><span th:text="${session.messagenum}"></span></span></a>
+    <a id="Favorite" href="favorite" class="button-4 w-button">Favorite</a>
+    <a id="History" href="history" class="button-5 w-button">History</a>
+    <a id="LogOut" href="signout" class="button-7 w-button">Log out</a>
   </div>
+</nav>
   <div class="w-layout-grid grid-2">
     <a id="tragedy" ONCLICK="passtag('Tragedy')" class="button-17 w-node-73b6c088faf1-5db1affa w-button">Tragedy</a>
     <a id="action" ONCLICK="passtag('Action')" class="button-18 w-node-4222410b4ad0-5db1affa w-button">Action</a>
@@ -97,7 +98,7 @@
           div.setAttribute("class", "w-layout-grid grid-3");
           var link = document.createElement('a');
           link.href = "series?id=" + sl[i].id;
-
+          link.setAttribute("class","link");
           var img = document.createElement("img");
           img.src = covers[i];
           img.setAttribute("height", "240");
@@ -105,6 +106,7 @@
           link.appendChild(img);
           img.alt="";
           img.classname+=" image-2 w-node-e83870ec88eb-5db1affa";
+          img.setAttribute("class","image-2");
           img.id+=" cover";
           link.appendChild(img);
           div.appendChild(link);
@@ -119,11 +121,9 @@
       }
       else{
         var text = document.createElement("h2");
-        text.innerHTML = "There is no such results.";
+        text.innerHTML = "<br>&nbsp;&nbsp;There are no such results.";
         boarder.appendChild(text);
       }
-
-
     </script>
   </div>
 

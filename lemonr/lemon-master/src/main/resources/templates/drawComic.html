@@ -29,7 +29,7 @@
   <div id="Topbar" class="topbar w-container">
     <a id="Home" href="home" class="button-14 w-button">Home</a>
     <a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a>
-    <a id="Message" href="message" class="button-2 w-button">Message</a>
+    <a id="Message" href="message" class="button-3 w-button"><span>Message</span><span class="badge"><span th:text="${session.messagenum}"></span></span></a>
     <a id="Favorite" href="favorite" class="button-2 w-button">Favorite</a>
     <a id="History" href="history" class="button-2 w-button">History</a>
     <a id="LogOut" href="signIn" class="button-2 w-button">Log out</a>
@@ -111,10 +111,9 @@
 </script>
 
 
-<div class="w-row">
+<div class="row">
 
-  <div class="column-3 w-col w-col-2 w-col-medium-2"><a id="add"  class="w-button">Add One Page</a></div>
-  <div class="column-4 w-col w-col-3 w-col-medium-3"><a id="delete"  class="w-button">Delete the last Page</a></div>
+  <a id="add"  class="w-button">Add One Page</a><a id="delete"  class="w-button">Delete the last Page</a>
   <!-- <div class="column-5 w-col w-col-3 w-col-medium-3"><a id="cover" href="#" class="w-button">Set Current Page as Cover</a></div> -->
 </div>
 
@@ -186,7 +185,7 @@
     <form id="email-form" name="email-form" data-name="Email Form" class="form"  action="/uploadthispage" enctype="multipart/form-data" method="post">
       <input name="ci" th:value="${session.ci}" style="visibility: hidden;"><br/>
       <input name="pageindex" th:value="${session.pageindex}" style="visibility: hidden;"><br/>
-      Change profile image: <input type="file" name="file"><br/>
+      <p>Change profile image: </p><input type="file" name="file"><br/>
       <input type="submit" value="upload">
     </form>
   </div>

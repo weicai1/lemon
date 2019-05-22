@@ -22,16 +22,8 @@
   </div>
 
 
+  <h1 class="text-block-4">All Works</h1>
 
-
-<!--  <div id="seriesList" class="w-layout-grid grid">-->
-<!--    <div id="seriesName" class="w-node-cf5794717f6e-44c180d8">Lemon Man</div><a id="deleteSeries" href="#" class="w-node-895e2559472b-44c180d8">Delete this series</a><a id="deleteChapter1" href="#" class="w-node-0ce30eb9e701-44c180d8">Delete this chapter</a><a id="deleteChapter2" href="#" class="w-node-c827bc8a0d22-44c180d8">Delete this chapter</a>-->
-<!--    <div id="chapter1" class="text-block w-node-68d4b1bbbf6d-44c180d8">Chapter 1</div>-->
-<!--    <div id="chapter2" class="text-block w-node-23c07954ba42-44c180d8">Chapter 2</div>-->
-<!--  </div>-->
-
-
-  <h1>All Works</h1>
 
   <div id="displayuser" >
 
@@ -47,7 +39,7 @@
 
       if(ss==1) {
       var div=document.createElement('div');
-        div.setAttribute("class", "w-layout-grid grid-3");
+        // div.setAttribute("class", "w-layout-grid grid-3");
 
         for (var key in AllSeriesname){
 
@@ -55,7 +47,7 @@
           div.setAttribute("class", "w-layout-grid grid-3");
 
           var Series = document.createElement("a");
-          Series.setAttribute("class","text-block-2 w-node-8eb3a6990027-5db1affa");
+          Series.setAttribute("class","text-block-2 w-node-tit");
           Series.innerHTML = ""+ key;
           div.appendChild(Series);
 
@@ -83,12 +75,13 @@
           for (var x = 0; x < indexvalue.length; x++){
 
             var Comic = document.createElement("a");
-            Comic.setAttribute("class","text-block-2 w-node-8eb3a6990027-5db1affa");
+            Comic.setAttribute("class","text-block-2 w-node-tit2");
             Comic.innerHTML = "&emsp;Chapter "+ indexvalue[x];
             div.appendChild(Comic);
 
             var del = document.createElement("a");
-            del.setAttribute("class","text-block-2 w-node-8eb3a6990027-5db1affa");
+            del.setAttribute("class","text-block-2 w-node-cha");
+            del.setAttribute("class","text-block-2 w-node-cha")
             del.setAttribute("id",idvalue[x]);
             del.setAttribute( "onClick", "delecomic(this.id)" );
             del.href = "#";
@@ -104,6 +97,7 @@
       }
       else{
         var text = document.createElement("h2");
+
         text.innerHTML = "There is no such results.";
         boarder.appendChild(text);
       }

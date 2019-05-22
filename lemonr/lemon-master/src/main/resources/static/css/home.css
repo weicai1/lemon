@@ -1,59 +1,78 @@
 .topbar {
   padding-left: 3px;
   text-align: center;
-  background-color: #8BD8BD;
+  background-color: #f1f4eb;
+  width: 100%;
 }
-#Home,#PersonalCenter,#Message,#Favorite,#History,#LogOut{
 
+#Home,#PersonalCenter,#Message,#Favorite,#History,#LogOut{
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
   color: #243665;
   padding-left: 3px;
   padding-right: 3px ;
   text-align: center;
-  background-color: #8BD8BD;
-  font-family: 'Tamil MN';
+  background-color: #f1f4eb;
+  font-family: "Helvetica Neue";
   font-weight: bold;
-  font-size: 14px;
+  font-size: 18px;
+  padding-top: 13px;
   text-align-all: center;
 }
 #Home:hover, #Home:active{
-  background-color: #243665;
-  color: #8BD8BD;
+  background-color: #bc4747;
+  color: #f1f4eb;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 #PersonalCenter:hover,#PersonalCenter:active{
-  background-color: #243665;
-  color: #8BD8BD;
+  background-color: #bc4747;
+  color: #f1f4eb;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 #Message:hover,#Message:active{
-  background-color: #243665;
-  color: #8BD8BD;
+  background-color: #bc4747;
+  color: #f1f4eb;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 #Favorite:hover,#Favorite:active{
-  background-color: #243665;
-  color: #8BD8BD;
+  background-color: #bc4747;
+  color: #f1f4eb;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 #History:hover,#History:active{
-  background-color: #243665;
-  color: #8BD8BD;
+  background-color: #bc4747;
+  color: #f1f4eb;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 #LogOut:hover,#LogOut:active{
-  background-color: #243665;
-  color: #8BD8BD;
+  background-color: #bc4747;
+  color: #f1f4eb;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
+
 .button {
   margin-left: 189px;
 
 }
 input[type=button] {
-  border-radius: 40%;
-  font-family: 'Tamil MN';
+  border-radius: 8px;
+  font-family: "Helvetica Neue";
   font-weight: bold;
   font-size: 14px;
   background-color: white;
   color: #243665;
+  //border: 2px solid #8BD8BD;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  width: 120px;
+  margin-right: 20px;
 }
 input[type=button]:hover,input[type=button]:active{
-  background-color: #8BD8BD;
+  background-color: #bc4747;
   color: #243665;
+  //background-color: #4CAF50; /* Green */
+  color: white;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 .button-2 {
   margin-left: 40px;
@@ -87,36 +106,56 @@ input[type=button]:hover,input[type=button]:active{
 }
 
 .search {
-  width: 500px;
-  margin: -64px -25px 10px 329px;
+  width: 550px;
+  //margin: -64px -25px 10px 329px;
+  //border-style: solid;
+  margin: 0 auto;
+  height: 50px
 }
 
 .search-button {
+  cursor: pointer;
+  text-align: center;
+  height: 40px;
+  width: 120px;
   border-radius: 8px;
-  margin-top: -130px;
+  margin-top: -145px;
   margin-bottom: 1px;
-  margin-left: 526px;
-  background-color: #8BD8BD;
+  //margin-left: 600px;
+  background-color: white;
   color: #243665;
-  font-family: 'Tamil MN';
+  border: 3px solid #e89645;
+  font-family: "Helvetica Neue";
   font-weight: bold;
   font-size: 14px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
 //opacity: 0.7;
 }
 .search-button:hover{
-  background-color: #243665;
-  color: #8BD8BD;
+  background-color: #e89645;
+  color: white;
   opacity: 1;
 }
 
 .search-input {
-  margin-bottom: -28px;
-  margin-left: 6px;
+  margin-bottom: -30px;
+  //margin-left: 80px;
   border-radius: 8px;
+  width: 400px;
+  height: 40px;
+}
+.search-input:hover{
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  border: 2px solid #e89645;
+//border-radius: 8px;
+  //width: 505px;
 }
 #recommandation{
   font-family: 'Tamil MN';
   font-weight: bold;
+  color: white;
 }
 
 .badge {
@@ -126,6 +165,10 @@ input[type=button]:hover,input[type=button]:active{
   padding: 5px 10px;
   border-radius: 8px;
   background: red;
+  color: white;
+}
+.badge:hover{
+  background: #bc4747;
   color: white;
 }
 
@@ -138,9 +181,12 @@ input[type=button]:hover,input[type=button]:active{
   margin-top: 47px;
   margin-bottom: -14px;
   padding-top: 0px;
+  /*
   border: 1px none #000;
   border-radius: 0px;
-  color: #ce1c1c;
+
+  //color: #ce1c1c;
+  */
   text-align: center;
 }
 
@@ -210,21 +256,91 @@ input[type=button]:hover,input[type=button]:active{
 }
 
 .image {
-  margin-left: 58px;
+  //margin-left: 58px;
 }
 
 .image-2 {
-  margin-left: 57px;
-  text-align: left;
+  //margin-left: 157px;
+  //text-align: left;
 }
 
-.image-3 {
-  margin-left: 35px;
+img {
+  margin-left: 0px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  padding: 0px;
+  width: 200px;
+  height: 200px;
+  float: left;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+/*
+img:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}*/
+.row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+  padding: 0 4px;
+  border-style: none;
+  //border: 3px solid black;
+  margin-left: 40px;
+  height: 230px;
 }
 
+/* Create four equal columns that sits next to each other */
+.column {
+  //-ms-flex: 25%; /* IE10 */
+  //flex: 25%;
+  //max-width: 25%;
+  width: 200px;
+  padding: 0 4px;
+  //border: 3px solid black;
+  //margin-right: 10px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+.column:hover {
+  position:relative;
+  top: -35px;
+  //background:#00CCCC;
+
+}
+.name {
+  position: relative;
+  //top: 220px;
+  //right: 30px;
+  //border: 3px solid #73AD21;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+}
+.outlink{
+  text-decoration: none;
+  width: 200px;
+}
+/*
+.columnsh {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+  width: 150px;
+}
+*/
 .div-block-4 {
   text-align: center;
-  float: left;
+  //float: left;
 }
 
 .button-14 {

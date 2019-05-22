@@ -76,11 +76,12 @@
 <div id="Topbar" class="topbar w-container">
   <a id="Home" href="home" class="button-14 w-button">Home</a>
   <a id="PersonalCenter" href="personal" class="button-2 w-button">Personal Center</a>
-  <a id="Message" href="message" class="button-2 w-button">Message</a>
+  <a id="Message" href="message" class="button-3 w-button"><span>Message</span><span class="badge"><span th:text="${session.messagenum}"></span></span></a>
   <a id="Favorite" href="favorite" class="button-2 w-button">Favorite</a>
   <a id="History" href="history" class="button-2 w-button">History</a>
   <a id="LogOut" href="signout" class="button-2 w-button">Log out</a>
 </div>
+<div id="board">
 <div id="comic" class="w-layout-grid grid-3">
 
   <img th:src="${session.seriescover}" id="cover" alt="" class="image-2 w-node-0f9c0b849902-fdb4ecab">
@@ -97,7 +98,7 @@
   <!--<div class="column w-col w-col-4"><a id="read" href="#" class="button-17 w-button">Start Reading</a></div>-->
   <div class="column-2 w-col w-col-2"><a id="toSubscribe" onclick="subscribeComic()" class="button-15 w-button" >Subscribe</a></div>
 
-  <div class="column-3 w-col w-col-2"><a id="like" href="#" class="button-15 w-button">Favorite</a></div>
+  <div class="column-3 w-col w-col-2"><a id="like" onclick="favoriteComic()" class="button-15 w-button">Favorite</a></div>
 
   <div class="column-4 w-col w-col-2">
     <label class="container">Like
@@ -114,7 +115,7 @@
   <div class="column-5 w-col w-col-2"><a id="dislike" href="#" class="button-15 w-button">Dislike</a></div>
   -->
 </div>
-
+</div>
 <script th:inline="javascript">
   var seriesid=/*[[${session.series.getId()}]]*/ 0;
   var ui= /*[[${session.userid}]]*/ 0;
@@ -125,7 +126,13 @@
   var dislikebut=document.getElementById("dislikeb");
   var likeState=/*[[${session.likeitem}]]*/ null;
   var exist=false;
-
+  var favbutton=document.getElementById("like");
+  var favoriteList=/*[[${session.favoriteComicList}]]*/ null;
+  var favoriteExist=false;
+  console.log("AAAAAAAAA");
+  console.log(favoriteList);
+  console.log("BBBBBBBBBB");
+  console.log(seriesList);
   for(var i=0;i<seriesList.length;i++){
     if(seriesid==seriesList[i])
       exist=true;
@@ -136,7 +143,18 @@
   else{
     subbutton.innerHTML="Unsubscribe";
   }
-  console.log(likeState);
+
+  for(var i=0;i<favoriteList.length;i++){
+    if(seriesid==favoriteList[i])
+      favoriteExist=true;
+  }
+  if(!favoriteExist){
+    favbutton.innerHTML="Favorite";
+  }
+  else{
+    favbutton.innerHTML="Unfavorite";
+  }
+
   var likeexist=false;
   if(likeList!=null) {
     for (var i = 0; i < likeList.length; i++) {
@@ -162,16 +180,21 @@
     window.location.href = "/toSubscribe?seriesid="+seriesid+"&subscribe="+subbutton.innerHTML;
   }
 
+  function favoriteComic(){
+    window.location.href = "/toFavorite?seriesid="+seriesid+"&favorite="+favbutton.innerHTML;
+  }
   function favorite(state){
     window.location.href = "/like?seriesid="+seriesid+"&state="+state;
   }
 
 
 </script>
-<div class="text-block-3">Chapters:</div>
+<br>
+<div class="text-block-3" >Chapters:</div>
 <div id="chapterArea" class="w-layout-grid grid-4">
-  <div id="chapter11" class="text-block-4 w-node-1d28ae71ae6d-fdb4ecab" th:each="chapter:${session.comics}">
-    <a th:href="@{/read(id=${chapter.getId()},index=1)}">Chapter  <span th:text="${chapter.getIndexs()}"></span> </a></div>
+  <div id="chapter11" class="text-block-4" th:each="chapter:${session.comics}">
+    <a class="lk" th:href="@{/read(id=${chapter.getId()},index=1)}">Chapter  <span th:text="${chapter.getIndexs()}"></span> </a>
+  </div>
 </div>
 <div id="commentDiv" class="div-block-2">
   <div id="commentHeader" class="text-block-5">Comments</div>
@@ -217,7 +240,6 @@
           <div id="t" >aaa</div>
         </div>
       </div>
-
     </li>-->
   </ul>
   <script th:inline="javascript">
